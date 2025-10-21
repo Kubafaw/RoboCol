@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://bhlwisdjn474p"]
+
+[ext_resource type="Script" uid="uid://o0lv5ld0uxhm" path="res://game.gd" id="1_7jktm"]
+[ext_resource type="PackedScene" uid="uid://csj0g6lyv5kbn" path="res://MainMap/MainMap.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://bxatemoo7fe8m" path="res://Player.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://cx7rfvu3rvvrm" path="res://ResourceNodes/Pine_tree_node.tscn" id="2_j5wjh"]
+[ext_resource type="Script" uid="uid://bbjckgc2p8pp2" path="res://sub_pixel_camera.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://chdv33cevcx4" path="res://ResourceNodes/Boulder_node.tscn" id="3_hve3p"]
+[ext_resource type="Texture2D" uid="uid://lvdak7mh3f07" path="res://Graphics/Tile_marker.png" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://cu1136k081yqq" path="res://Buildings/LaunchPad.tscn" id="4_mfdv2"]
+[ext_resource type="Texture2D" uid="uid://cun2jny3gibxd" path="res://Graphics/Progress_fill.png" id="6_eow3j"]
+[ext_resource type="Texture2D" uid="uid://cd8hbihv10k1r" path="res://Graphics/Progress_boundry.png" id="7_j5wjh"]
+[ext_resource type="PackedScene" uid="uid://chwwdl5dbhsq7" path="res://HUD/HUD.tscn" id="9_vef74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5wjh"]
+size = Vector2(2, 2)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_7jktm")
+resource_node_scene_tmp = ExtResource("2_j5wjh")
+resource_node_scene_tmp2 = ExtResource("3_hve3p")
+building_scene_tmp = ExtResource("4_mfdv2")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("object")]
+zoom = Vector2(2, 2)
+script = ExtResource("3_feb5d")
+object = NodePath("../Player")
+
+[node name="MainMap" parent="." instance=ExtResource("1_80nbo")]
+z_index = -1
+
+[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
+position = Vector2(32, 12)
+
+[node name="Pointer" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 1, 0.568627)
+position = Vector2(16, 12)
+texture = ExtResource("4_fc0e3")
+
+[node name="MakeTransparentArea" type="Area2D" parent="Pointer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pointer/MakeTransparentArea"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_j5wjh")
+
+[node name="TargetMarker" type="Sprite2D" parent="."]
+modulate = Color(0, 0.458824, 1, 0.533333)
+position = Vector2(24, 8)
+texture = ExtResource("4_fc0e3")
+
+[node name="ActionProgress" type="TextureProgressBar" parent="."]
+visible = false
+z_index = 1
+custom_minimum_size = Vector2(5, 5)
+offset_left = -8.0
+offset_top = -23.0
+offset_right = 32.0
+offset_bottom = 17.0
+max_value = 1.0
+step = 0.01
+value = 0.2
+texture_under = ExtResource("6_eow3j")
+texture_over = ExtResource("7_j5wjh")
+texture_progress = ExtResource("6_eow3j")
+tint_under = Color(0.180005, 0.180005, 0.180005, 1)
+tint_progress = Color(0, 0.741176, 0, 1)
+
+[node name="Hud" parent="." instance=ExtResource("9_vef74")]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://u8xp4rjcnor5"]
+
+[ext_resource type="Script" uid="uid://cy65bcial5q36" path="res://HUD/inventory_slot.gd" id="1_057ip"]
+[ext_resource type="Texture2D" uid="uid://dqdp6weu8wvtw" path="res://Graphics/Logs.png" id="1_eo70j"]
+
+[node name="InventorySlot" type="Control"]
+custom_minimum_size = Vector2(32, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 30.0
+offset_bottom = 38.0
+script = ExtResource("1_057ip")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 32.0
+offset_bottom = 40.0
+color = Color(0.241156, 0.241156, 0.241156, 0.752941)
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 14)
+scale = Vector2(2, 2)
+texture = ExtResource("1_eo70j")
+
+[node name="Number" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 25.0
+offset_right = 30.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 12
+text = "23"
+horizontal_alignment = 1

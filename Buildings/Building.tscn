@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cv1smbh4rr8bm"]
+
+[node name="Building" type="Node2D"]
+y_sort_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="MakeTransparentArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[connection signal="area_entered" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_entered"]
+[connection signal="area_exited" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_exited"]

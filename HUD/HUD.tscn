@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://chwwdl5dbhsq7"]
+
+[ext_resource type="Script" uid="uid://dc2gptnn3n7sb" path="res://HUD/hud.gd" id="1_efote"]
+[ext_resource type="PackedScene" uid="uid://u8xp4rjcnor5" path="res://HUD/InventorySlot.tscn" id="2_b7ubu"]
+[ext_resource type="PackedScene" uid="uid://c5sru34gt285p" path="res://HUD/Popup.tscn" id="3_ja1d4"]
+
+[node name="Hud" type="Node2D"]
+script = ExtResource("1_efote")
+inventory_slot_scene = ExtResource("2_b7ubu")
+popup_scene = ExtResource("3_ja1d4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Backgorund" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0, 0, 0, 0.823529)
+
+[node name="Building_interfaces" type="Node2D" parent="CanvasLayer"]
+
+[node name="Inventory" type="ScrollContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(330, 180)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 47.0
+offset_top = 61.0
+offset_right = 377.0
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="Inventory_slots" type="HFlowContainer" parent="CanvasLayer/Inventory"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InventorySlot" parent="CanvasLayer/Inventory/Inventory_slots" instance=ExtResource("2_b7ubu")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="CanvasLayer/Inventory/Inventory_slots" instance=ExtResource("2_b7ubu")]
+layout_mode = 2
+
+[node name="Popups" type="VBoxContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -45.0
+offset_right = -3.0
+grow_horizontal = 0
+grow_vertical = 0

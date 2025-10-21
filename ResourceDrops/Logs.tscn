@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0qmirx6u1d8w"]
+
+[ext_resource type="PackedScene" uid="uid://lpt0of1go6" path="res://ResourceDrops/ResourceDrop.tscn" id="1_bsf3x"]
+[ext_resource type="Texture2D" uid="uid://dqdp6weu8wvtw" path="res://Graphics/Logs.png" id="2_vjfh5"]
+
+[node name="ResourceDrop" instance=ExtResource("1_bsf3x")]
+resource = "Logs"
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-1, -2)
+texture = ExtResource("2_vjfh5")

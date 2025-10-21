@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5sru34gt285p"]
+
+[ext_resource type="Texture2D" uid="uid://dqdp6weu8wvtw" path="res://Graphics/Logs.png" id="1_f8xdr"]
+[ext_resource type="Script" uid="uid://ca6lk0sg2uifk" path="res://HUD/popup.gd" id="1_gn46o"]
+
+[node name="Popup" type="Control"]
+custom_minimum_size = Vector2(90, 26)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gn46o")
+life_span = 3.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 95.0
+offset_bottom = 26.0
+color = Color(1, 1, 1, 0.337255)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(12, 12)
+scale = Vector2(2, 2)
+texture = ExtResource("1_f8xdr")
+
+[node name="Amount" type="Label" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 31.0
+offset_right = 77.0
+offset_bottom = 23.0
+text = "1 (15)"
+
+[node name="Lifespan" type="Timer" parent="."]
+
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

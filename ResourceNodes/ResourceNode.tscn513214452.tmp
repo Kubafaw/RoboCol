@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://bswnaq1yto6m3"]
+
+[sub_resource type="GDScript" id="GDScript_dmyx1"]
+script/source = "extends Node2D
+
+class_name Resource_Node
+
+@export var amount_to_drop : int = 0
+@export var resource_scene : PackedScene
+@export var gather_time : float = 1.0
+@export var size_x : int
+@export var size_y : int
+
+var transparent_areas_overlapping : Array[Area2D] = []
+var tile_position : Vector2
+
+func _ready() -> void:
+	tile_position = Gamedata._Main_Map._get_tile_position(global_position)
+	for _position in Positionfunctions._get_occupied_tiles(self):
+		Gamedata._Main_Map._add_collision_on_tile_map(tile_position + _position)
+	
+func _gather() -> void:
+	var possible_tiles_to_drop : Array[Vector2] = Positionfunctions._get_neighbouring_tiles(self)
+	var _possible_positions : Array[Vector2] = possible_tiles_to_drop.duplicate()
+	var _amount_dropped : int = 0
+	
+	_possible_positions.shuffle()
+	
+	while _amount_dropped < amount_to_drop:
+		var _resource : ResourceDrop = resource_scene.instantiate()
+		if _possible_positions.size() < 1:
+			_possible_positions = possible_tiles_to_drop.duplicate()
+			_possible_positions.shuffle()
+		while _possible_positions.size() > 0:
+			var new_possible_position : Vector2 = tile_position + _possible_positions.pop_front()
+			if Gamedata._Main_Map._get_tile_occupancy(new_possible_position) == null:
+				_resource.global_position = Gamedata._Main_Map._global_tile_position(new_possible_position)
+				Gamedata._Main_Map._add_resource(_resource)
+				_amount_dropped += 1
+				break
+				
+	for _position in Positionfunctions._get_occupied_tiles(self):
+		Gamedata._Main_Map._remove_collision_on_tile_map(tile_position + _position)
+		Gamedata._Main_Map._clear_tile_occupancy(tile_position + _position)
+		
+	queue_free()
+
+
+func _on_make_transparent_area_area_entered(area: Area2D) -> void:
+	transparent_areas_overlapping.append(area)
+	$Sprite2D.self_modulate = Color(1.0, 1.0, 1.0, 0.4)
+
+func _on_make_transparent_area_area_exited(area: Area2D) -> void:
+	transparent_areas_overlapping.erase(area)
+	if transparent_areas_overlapping.size() < 1:
+		$Sprite2D.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+"
+
+[node name="ResourceNode" type="Node2D"]
+script = SubResource("GDScript_dmyx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="MakeTransparentArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[connection signal="area_entered" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_entered"]
+[connection signal="area_exited" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_exited"]

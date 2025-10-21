@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx7rfvu3rvvrm"]
+
+[ext_resource type="PackedScene" uid="uid://bswnaq1yto6m3" path="res://ResourceNodes/ResourceNode.tscn" id="1_rxx76"]
+[ext_resource type="PackedScene" uid="uid://b0qmirx6u1d8w" path="res://ResourceDrops/Logs.tscn" id="2_rxx76"]
+[ext_resource type="Texture2D" uid="uid://dgth4detoii44" path="res://Graphics/Pine_tree.png" id="3_imhsm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bgrgf"]
+size = Vector2(16, 30)
+
+[node name="ResourceNode" instance=ExtResource("1_rxx76")]
+amount_to_drop = 3
+resource_scene = ExtResource("2_rxx76")
+gather_time = 2.0
+size_x = 1
+size_y = 1
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -12)
+texture = ExtResource("3_imhsm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MakeTransparentArea" index="0"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_bgrgf")
