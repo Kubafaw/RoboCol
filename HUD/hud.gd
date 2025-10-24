@@ -15,16 +15,22 @@ func _ready() -> void:
 # TO DO add search and filter for buildings to inventory
 # TO DO Add signal for inventory refresh while it is open
 func _show_inventory() -> void:
-	var _inventory_slots : Array[Sprite2D] = []
-	var _inventory_numbers : Array[Label] = []
+	var _inventory : Array[Array] = []
+	#var _inventory_slots : Array[Sprite2D] = []
+	#var _inventory_numbers : Array[Label] = []
 	
 	for slot : InventorySlot in inventory_slots.get_children():
 		slot.free()
-	
+		
 	for _item in Gamedata._Main_Player.inventory:
+		_inventory.append([_item, Gamedata._Main_Player.inventory[_item]])
+	
+	_inventory.sort_custom(_sort_by_amount)
+	
+	for _item in _inventory:
 		var inventory_slot : InventorySlot = inventory_slot_scene.instantiate()
-		inventory_slot._change_icon(_item)
-		inventory_slot._change_number(Gamedata._Main_Player.inventory[_item])
+		inventory_slot._change_icon(_item[0])
+		inventory_slot._change_number(_item[1])
 		inventory_slots.add_child(inventory_slot)
 	
 	%Inventory.show()
@@ -52,3 +58,7 @@ func _add_popup(resource: String, amount: int, total: int) -> void:
 	popup._change_icon(resource)
 	%Popups.add_child(popup)
 		
+func _sort_by_amount(a, b) -> bool:
+	if a[1] > b[1]:
+		return true
+	return false

@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://u8xp4rjcnor5"]
+[gd_scene load_steps=5 format=3 uid="uid://u8xp4rjcnor5"]
 
 [ext_resource type="Script" uid="uid://cy65bcial5q36" path="res://HUD/inventory_slot.gd" id="1_057ip"]
 [ext_resource type="Texture2D" uid="uid://dqdp6weu8wvtw" path="res://Graphics/Logs.png" id="1_eo70j"]
+[ext_resource type="Shader" uid="uid://td0rbmc40a87" path="res://HUD/InventorySlot.gdshader" id="2_x7rkh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_auyuj"]
+resource_local_to_scene = true
+shader = ExtResource("2_x7rkh")
+shader_parameter/_color = Color(1, 1, 1, 1)
+shader_parameter/_distance_modifier = 1.55
+shader_parameter/_time_modifier = 0.0
+shader_parameter/_brightness_modifier = 1.0
 
 [node name="InventorySlot" type="Control"]
 custom_minimum_size = Vector2(32, 40)
@@ -13,13 +22,14 @@ offset_right = 30.0
 offset_bottom = 38.0
 script = ExtResource("1_057ip")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_auyuj")
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 32.0
 offset_bottom = 40.0
-color = Color(0.241156, 0.241156, 0.241156, 0.752941)
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture_filter = 1
