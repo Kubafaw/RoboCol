@@ -2,25 +2,30 @@ extends Node2D
 
 class_name Region
 
-var cords : Vector2i
-var genereted : bool = false
+@export var cords : Vector2i
+@export var initial : bool
 var biome : String
 var max_nodes : int = 0
 
 var spawned_resources : Dictionary[PackedScene, int]
 
-func _on_region_center_area_entered(area: Area2D) -> void:
-	if genereted:
+func _on_region_center_area_entered(_area: Area2D) -> void:
+	if Gamedata._Main_Map.regions_generated.has(cords):
 		return
-	genereted = true
+	_generate_region()
+
+		
+func _generate_region() -> void:
+	Gamedata._Main_Map.regions_generated[cords] = true
 	biome = Gamedata._Map_generator._generate_region(cords.x, cords.y)
+	#print("genereted region: " + str(cords) + ", " + biome)
 	Gamedata._Main_Map._create_region(biome, cords)
 	Gamedata._Main_Map._add_regions(cords)
 	max_nodes = Gamedata._Main_Map._get_resources_per_region()
 	
 	for node in Biomes.biome_resource_nodes[biome]:
 		spawned_resources[node] = 0
-	
+		
 	for i in range(max_nodes):
 		_generate_resource()
 	
@@ -49,6 +54,7 @@ func _generate_resource() -> void:
 				return
 	
 	Gamedata._Main_Map._add_resource_node(pos_vector, res_node)
+	spawned_resources[least_amount_scene] += 1
 	
 		
 	

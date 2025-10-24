@@ -14,7 +14,7 @@ func _ready() -> void:
 	Gamedata._Main_Map._add_building(
 		Vector2(0, 0), building_scene_tmp.instantiate())
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var mouse_pos : Vector2 = get_global_mouse_position() + Vector2(0, 4)
 	$Pointer.global_position = Gamedata._Main_Map._get_tile_global_position(mouse_pos)
 	$ActionProgress.global_position = $Player.global_position + Vector2(-8, -22)

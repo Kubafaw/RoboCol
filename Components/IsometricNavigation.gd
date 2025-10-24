@@ -3,17 +3,18 @@ extends Node
 class_name IsometricNavigation
 
 var target : Vector2 = Vector2(INF, INF) # in tile map cords
-var cords_queue : Array[Vector2] = []
 var x_movement_prior : bool = true 
 
 @export var path_max_lenght : int = 5 # in tiles
+@export var move_component : MoveComponent
 
 func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 	if target == Vector2(INF, INF):
 		return _current_pos
-
-	if cords_queue.size() > 0:
-		return Gamedata._Main_Map._global_tile_position(cords_queue.pop_front() + _current_pos)
+	
+	if target == _current_pos:
+		move_component._same_position()
+		return 	Gamedata._Main_Map._global_tile_position(_current_pos)
 
 	var next_nav_point : Vector2 = Vector2()
 	var pos_diff : Vector2 = abs(target - _current_pos)
@@ -35,13 +36,11 @@ func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 					var y_diff = abs(_current_pos.y - tile_occupancy.tile_position.y)
 					var y_diff2 = abs(_current_pos.y - (tile_occupancy.tile_position.y - tile_occupancy.size_y + 1))
 					if y_diff <= y_diff2:
-						cords_queue.append(Vector2(0, y_diff + 1))
+						next_nav_point = Vector2(0, y_diff + 1)
 					else:
-						cords_queue.append(Vector2(0, -y_diff2 - 1))
+						next_nav_point = Vector2(0, -y_diff2 - 1)
 					x_movement_prior = true
-					#cords_queue.append(Vector2((tile_occupancy.size_x + 1) * x_vector.x, 0))
-					#cords_queue.append(Vector2(0, -y_diff - 1))
-					return Gamedata._Main_Map._global_tile_position(cords_queue.pop_front() + _current_pos)
+					return Gamedata._Main_Map._global_tile_position(next_nav_point + _current_pos)
 				break
 			next_nav_point += x_vector
 			if next_nav_point.x + _current_pos.x == target.x:
@@ -54,23 +53,20 @@ func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 					var x_diff = abs(_current_pos.x - tile_occupancy.tile_position.x)
 					var x_diff2 = abs(_current_pos.x - (tile_occupancy.tile_position.x - tile_occupancy.size_x + 1))
 					if x_diff <= x_diff2:
-						cords_queue.append(Vector2(x_diff + 1, 0))
+						next_nav_point = Vector2(x_diff + 1, 0)
 					else:
-						cords_queue.append(Vector2(-x_diff, 0))
+						next_nav_point = Vector2(-x_diff, 0)
 					x_movement_prior = false
-					#cords_queue.append(Vector2(0, (tile_occupancy.size_y + 1) * y_vector.y))
-					#cords_queue.append(Vector2(-x_diff - 1, 0))
-					return Gamedata._Main_Map._global_tile_position(cords_queue.pop_front() + _current_pos)
+					return Gamedata._Main_Map._global_tile_position(next_nav_point + _current_pos)
 				break
 			next_nav_point += y_vector
 			if next_nav_point.y + _current_pos.y == target.y:
 				break
 				
 	return Gamedata._Main_Map._global_tile_position(next_nav_point + _current_pos) 
-	
+
 func _set_target(_target : Vector2) -> void:
 	target = _target
-	cords_queue.clear()
 	
 func _get_target() -> Vector2:
 	return Gamedata._Main_Map._global_tile_position(target)

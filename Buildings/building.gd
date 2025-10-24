@@ -25,5 +25,5 @@ func _on_make_transparent_area_area_exited(area: Area2D) -> void:
 	if transparent_areas_overlapping.size() < 1:
 		$AnimatedSprite2D.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 
-func _interaction(player : Player) -> void:
+func _interaction(_player : Player) -> void:
 	pass

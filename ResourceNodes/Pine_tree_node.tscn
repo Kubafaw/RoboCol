@@ -1,8 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx7rfvu3rvvrm"]
+[gd_scene load_steps=9 format=3 uid="uid://cx7rfvu3rvvrm"]
 
 [ext_resource type="PackedScene" uid="uid://bswnaq1yto6m3" path="res://ResourceNodes/ResourceNode.tscn" id="1_rxx76"]
 [ext_resource type="PackedScene" uid="uid://b0qmirx6u1d8w" path="res://ResourceDrops/Logs.tscn" id="2_rxx76"]
 [ext_resource type="Texture2D" uid="uid://dgth4detoii44" path="res://Graphics/Pine_tree.png" id="3_imhsm"]
+[ext_resource type="Shader" uid="uid://bdkg63oipof05" path="res://ResourceNodes/ColorDensityShader.gdshader" id="3_xrkow"]
+[ext_resource type="Script" uid="uid://b8rivom7ll3ri" path="res://ResourceNodes/Pine_tree_node.gd" id="5_imhsm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_imhsm"]
+resource_local_to_scene = true
+shader = ExtResource("3_xrkow")
+shader_parameter/red_density = 1.0
+shader_parameter/green_density = 1.0
+shader_parameter/blue_density = 1.0
+shader_parameter/y_range = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrkow"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_imhsm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bgrgf"]
 size = Vector2(16, 30)
@@ -14,10 +35,14 @@ gather_time = 2.0
 size_x = 1
 size_y = 1
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_imhsm")
 position = Vector2(0, -12)
-texture = ExtResource("3_imhsm")
+sprite_frames = SubResource("SpriteFrames_xrkow")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MakeTransparentArea" index="0"]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_bgrgf")
+
+[node name="Node" type="Node" parent="." index="2"]
+script = ExtResource("5_imhsm")

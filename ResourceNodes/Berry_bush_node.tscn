@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxpnh7smbjj8p"]
+
+[ext_resource type="PackedScene" uid="uid://bswnaq1yto6m3" path="res://ResourceNodes/ResourceNode.tscn" id="1_e5nx7"]
+[ext_resource type="Texture2D" uid="uid://biyh0xapb3am8" path="res://Graphics/Berry_bush.png" id="2_32rd0"]
+[ext_resource type="PackedScene" uid="uid://ckqo5p8hdysan" path="res://ResourceDrops/Berries.tscn" id="2_wf1o4"]
+[ext_resource type="Shader" uid="uid://bdkg63oipof05" path="res://ResourceNodes/ColorDensityShader.gdshader" id="3_lngsg"]
+[ext_resource type="Script" uid="uid://cao2fu80h0xs1" path="res://ResourceNodes/Berry_bush_node.gd" id="3_temvj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xo26a"]
+resource_local_to_scene = true
+shader = ExtResource("3_lngsg")
+shader_parameter/red_density = 1.0
+shader_parameter/green_density = 1.0
+shader_parameter/blue_density = 1.0
+shader_parameter/y_range = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32rd0"]
+atlas = ExtResource("2_32rd0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_temvj"]
+atlas = ExtResource("2_32rd0")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wf1o4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32rd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_temvj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_temvj"]
+size = Vector2(12, 12)
+
+[node name="ResourceNode" instance=ExtResource("1_e5nx7")]
+amount_to_drop = 3
+resource_scene = ExtResource("2_wf1o4")
+gather_time = 2.0
+size_x = 1
+size_y = 1
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_xo26a")
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_wf1o4")
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MakeTransparentArea" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_temvj")
+
+[node name="Logic" type="Node2D" parent="." index="2" node_paths=PackedStringArray("Actor", "AnimatedSprite_2D", "regrow_timer")]
+script = ExtResource("3_temvj")
+regrow_time = 5.0
+Actor = NodePath("..")
+AnimatedSprite_2D = NodePath("../AnimatedSprite2D")
+regrow_timer = NodePath("../RegrowTimer")
+
+[node name="RegrowTimer" type="Timer" parent="." index="3"]
+wait_time = 5.0

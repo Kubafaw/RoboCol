@@ -35,19 +35,21 @@ func _gather() -> void:
 				Gamedata._Main_Map._add_resource(_resource)
 				_amount_dropped += 1
 				break
-				
-	for _position in Positionfunctions._get_occupied_tiles(self):
-		Gamedata._Main_Map._remove_collision_on_tile_map(tile_position + _position)
-		Gamedata._Main_Map._clear_tile_occupancy(tile_position + _position)
-		
-	queue_free()
+	
+	if $AnimatedSprite2D.frame == 0:
+		for _position in Positionfunctions._get_occupied_tiles(self):
+			Gamedata._Main_Map._remove_collision_on_tile_map(tile_position + _position)
+			Gamedata._Main_Map._clear_tile_occupancy(tile_position + _position)
+		queue_free()
+	else:
+		$Logic._gather()
 
 
 func _on_make_transparent_area_area_entered(area: Area2D) -> void:
 	transparent_areas_overlapping.append(area)
-	$Sprite2D.self_modulate = Color(1.0, 1.0, 1.0, 0.4)
+	$AnimatedSprite2D.self_modulate = Color(1.0, 1.0, 1.0, 0.4)
 
 func _on_make_transparent_area_area_exited(area: Area2D) -> void:
 	transparent_areas_overlapping.erase(area)
 	if transparent_areas_overlapping.size() < 1:
-		$Sprite2D.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+		$AnimatedSprite2D.self_modulate = Color(1.0, 1.0, 1.0, 1.0)

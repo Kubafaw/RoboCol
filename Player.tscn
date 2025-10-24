@@ -182,8 +182,9 @@ Navigation_Component = NodePath("../IsometricNavigation")
 Speed = 50.0
 metadata/_custom_type_script = "uid://hw5h8hos5nbk"
 
-[node name="IsometricNavigation" type="Node" parent="Components"]
+[node name="IsometricNavigation" type="Node" parent="Components" node_paths=PackedStringArray("move_component")]
 script = ExtResource("5_cxr5p")
+move_component = NodePath("../MoveComponent")
 metadata/_custom_type_script = "uid://jant1opdw3uc"
 
 [node name="ActionTimer" type="Timer" parent="."]

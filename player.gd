@@ -16,15 +16,19 @@ var inventory : Dictionary[String, int] = {}
 var hud_visible : bool = false
 
 func _ready() -> void:
+	Gamedata._Main_Player = self
 	$Components/MoveComponent.next_position = global_position
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Inventory"):
 		if hud_visible:
 			Gamedata._HUD._hide_inventory()
 		else:
-			Gamedata._HUD._show_inventory(inventory)
+			Gamedata._HUD._show_inventory()
 		hud_visible = !hud_visible
+		
+	if Input.is_action_just_pressed("Main_Menu"):
+		get_tree().quit()
 
 	if not hud_visible and Input.is_action_just_pressed("Main_Action"):
 		var mouse_pos : Vector2 = get_global_mouse_position() + Vector2(0, 4)

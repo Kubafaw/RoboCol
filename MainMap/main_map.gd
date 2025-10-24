@@ -13,15 +13,12 @@ class_name MainMap
 
 var tiles_occupancy : Dictionary[Vector2, Node2D] = {}
 var regions : Dictionary[Vector2i, Region]
+var regions_generated : Dictionary[Vector2i, bool]
 
 func _ready():
 	# set to GAMEDATA
 	Gamedata._Main_Map = self
-	# basic map generation
-	#for y in range(map_size_y):
-		#for x in range(map_size_x):
-			#map_tiles.set_cells_terrain_connect([
-				#Vector2(x, y), Vector2(-x, y), Vector2(x, -y), Vector2(-x, -y)], 0, 0)
+
 			
 func _get_tile_position(_position: Vector2) -> Vector2:
 	return map_tiles.local_to_map(to_local(_position))
@@ -40,13 +37,13 @@ func _add_resource_node(_tile: Vector2, _resource_node: ResourceNode) -> void:
 	for _position in Positionfunctions._get_occupied_tiles(_resource_node):
 		tiles_occupancy[_tile + _position] = _resource_node
 	_resource_node.global_position = _global_tile_position(_tile)
-	$ResourceNodes.add_child(_resource_node)
+	$ResourceNodes.call_deferred("add_child", _resource_node)
 	
 func _add_building(_tile: Vector2, _building : Building) -> void:
 	for _position in Positionfunctions._get_occupied_tiles(_building):
 		tiles_occupancy[_tile + _position] = _building
 	_building.global_position = _global_tile_position(_tile)
-	$Buildings.add_child(_building)
+	$Buildings.call_deferred("add_child", _building)
 	
 func _clear_tile_occupancy(point: Vector2) -> void:
 	tiles_occupancy.erase(point)
@@ -91,7 +88,7 @@ func _add_regions(cords: Vector2i) -> void:
 			region.cords = cords + Vector2i(x, 0)
 			region.global_position = _global_tile_position(region.cords * region_size_x + region_middle)
 			regions[cords + Vector2i(x, 0)] = region
-			$Regions.add_child(region)
+			$Regions.call_deferred("add_child", region)
 			
 	for y in [-1, 1]:
 		if !regions.has(cords + Vector2i(0, y)):
@@ -99,7 +96,7 @@ func _add_regions(cords: Vector2i) -> void:
 			region.cords = cords + Vector2i(0, y)
 			region.global_position = _global_tile_position(region.cords * region_size_x + region_middle)
 			regions[cords + Vector2i(0, y)] = region
-			$Regions.add_child(region)
+			$Regions.call_deferred("add_child", region)
 			
 func _get_resources_per_region() -> int:
-	return int(region_size_x * region_size_y / 12)
+	return int(region_size_x * region_size_y / 12.0)

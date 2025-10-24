@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckqo5p8hdysan"]
+
+[ext_resource type="PackedScene" uid="uid://lpt0of1go6" path="res://ResourceDrops/ResourceDrop.tscn" id="1_s4vse"]
+[ext_resource type="Texture2D" uid="uid://ck7vcpbt1odgu" path="res://Graphics/Berries.png" id="2_i8t5c"]
+
+[node name="ResourceDrop" instance=ExtResource("1_s4vse")]
+resource = "Berries"
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(-1, -2)
+texture = ExtResource("2_i8t5c")
