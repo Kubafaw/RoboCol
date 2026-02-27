@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dftw1yjkfwmol"]
+
+[ext_resource type="Script" uid="uid://bn2t5stabktho" path="res://MainMap/region.gd" id="1_byl7l"]
+[ext_resource type="TileSet" uid="uid://dt64o5o06gpny" path="res://MainMap/MainMap.tres" id="1_ov3xp"]
+[ext_resource type="Texture2D" uid="uid://5y3xis872gc3" path="res://Graphics/Tile_marker.png" id="3_nng07"]
+
+[node name="Region" type="Node2D" unique_id=1261766053]
+y_sort_enabled = true
+script = ExtResource("1_byl7l")
+
+[node name="MapTiles" type="TileMapLayer" parent="." unique_id=1062474471]
+unique_name_in_owner = true
+z_index = -1
+y_sort_enabled = true
+tile_set = ExtResource("1_ov3xp")
+
+[node name="RegionMiddle" type="Node2D" parent="." unique_id=1793798556]
+unique_name_in_owner = true
+visible = false
+y_sort_enabled = true
+
+[node name="RegionMiddle1" type="Sprite2D" parent="RegionMiddle" unique_id=275904088]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 0.258824, 0.784314)
+texture = ExtResource("3_nng07")
+
+[node name="RegionMiddle2" type="Sprite2D" parent="RegionMiddle" unique_id=470384645]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 0.258824, 0.784314)
+texture = ExtResource("3_nng07")
+
+[node name="RegionMiddle3" type="Sprite2D" parent="RegionMiddle" unique_id=66949514]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 0.258824, 0.784314)
+texture = ExtResource("3_nng07")
+
+[node name="RegionMiddle4" type="Sprite2D" parent="RegionMiddle" unique_id=1839600419]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 0.258824, 0.784314)
+texture = ExtResource("3_nng07")
+
+[node name="ResourceNodes" type="Node2D" parent="." unique_id=1875245058]
+unique_name_in_owner = true
+z_index = 1
+y_sort_enabled = true
+
+[node name="Buildings" type="Node2D" parent="." unique_id=959314112]
+unique_name_in_owner = true
+z_index = 1
+y_sort_enabled = true
+
+[node name="ResourceRespawnTimer" type="Timer" parent="." unique_id=1318377664]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="ResourceRespawnTimer" to="." method="_on_resource_respawn_timer_timeout"]

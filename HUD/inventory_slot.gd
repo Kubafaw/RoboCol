@@ -2,27 +2,35 @@ extends Control
 
 class_name InventorySlot
 
-var _resource : String
+var in_focus : bool = false
+var resource : String = ""
+var inventory_main_node : Inventory = null
 
-func _change_icon(_name : String) -> void:
-	$Icon.texture = Graphics.Icons[_name]
-	_resource = _name
+func _setup(_positon : Vector2) -> void:
+	%Icon.texture = null
+	%Amount.text = ""
+	self.position = _positon
+	
+func _change_data(amount : int, _resource : String) -> void:
+	if resource == _resource and amount != int(%Amount.text) and %HoverAnimation.assigned_animation != "hover":
+		%HoverAnimation.stop()
+		%HoverAnimation.play("value_update")
+	%Icon.texture = ResD.Drops[_resource]
+	%Amount.text = str(amount)
+	resource = _resource
 
-func _change_number(nmb : int) -> void:
-	$Number.text = str(nmb)
-
+	
 func _process(_delta: float) -> void:
-	if visible:
-		_hover(get_viewport().get_mouse_position())
-
-func _hover(mouse_pos: Vector2) -> void:
-	if _check_for_mouse_hover(mouse_pos):
-		%Background.material.set_shader_parameter("_brightness_modifier", 1.25)
-	else:
-		%Background.material.set_shader_parameter("_brightness_modifier", 1.0)
-
-func _check_for_mouse_hover(mouse_pos: Vector2) -> bool:
-	var container_pos : Vector2 = get_parent().get_parent().position
-	if position + container_pos <= mouse_pos and mouse_pos <= position + container_pos + size :
-		return true
-	return false
+	if in_focus and Input.is_action_just_pressed("Main_Action"):
+		inventory_main_node._transfer_reosurces(1, resource)
+			
+func _on_mouse_entered() -> void:
+	if %HoverAnimation != null:
+		%HoverAnimation.play("hover")
+		in_focus = true
+	
+func _on_mouse_exited() -> void:
+	if %HoverAnimation != null:
+		%HoverAnimation.play("RESET")
+		%HoverAnimation.stop()
+		in_focus = false

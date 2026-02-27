@@ -1,48 +1,93 @@
-[gd_scene load_steps=5 format=3 uid="uid://u8xp4rjcnor5"]
+[gd_scene format=3 uid="uid://c5yjxsrvhv484"]
 
-[ext_resource type="Script" uid="uid://cy65bcial5q36" path="res://HUD/inventory_slot.gd" id="1_057ip"]
-[ext_resource type="Texture2D" uid="uid://dqdp6weu8wvtw" path="res://Graphics/Logs.png" id="1_eo70j"]
-[ext_resource type="Shader" uid="uid://td0rbmc40a87" path="res://HUD/InventorySlot.gdshader" id="2_x7rkh"]
+[ext_resource type="Texture2D" uid="uid://v1t7dh3kfuxi" path="res://Graphics/Logs.png" id="1_057ip"]
+[ext_resource type="Script" uid="uid://kekr1lgrsdg7" path="res://HUD/inventory_slot.gd" id="1_x7rkh"]
+[ext_resource type="FontFile" uid="uid://ehhu2otuxy03" path="res://Fonts/Early GameBoy.ttf" id="2_x7rkh"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_auyuj"]
-resource_local_to_scene = true
-shader = ExtResource("2_x7rkh")
-shader_parameter/_color = Color(1, 1, 1, 1)
-shader_parameter/_distance_modifier = 1.55
-shader_parameter/_time_modifier = 0.0
-shader_parameter/_brightness_modifier = 1.0
+[sub_resource type="Animation" id="Animation_x7rkh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
-[node name="InventorySlot" type="Control"]
-custom_minimum_size = Vector2(32, 40)
+[sub_resource type="Animation" id="Animation_auyuj"]
+resource_name = "hover"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3)]
+}
+
+[sub_resource type="Animation" id="Animation_neygn"]
+resource_name = "value_update"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_neygn"]
+_data = {
+&"RESET": SubResource("Animation_x7rkh"),
+&"hover": SubResource("Animation_auyuj"),
+&"value_update": SubResource("Animation_neygn")
+}
+
+[node name="InventorySlot" type="Control" unique_id=349695648]
+custom_minimum_size = Vector2(27, 24)
 layout_mode = 3
 anchors_preset = 0
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 30.0
-offset_bottom = 38.0
-script = ExtResource("1_057ip")
+offset_right = 26.0
+offset_bottom = 22.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_x7rkh")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Icon" type="Sprite2D" parent="." unique_id=2074656206]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_auyuj")
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 32.0
-offset_bottom = 40.0
+position = Vector2(12, 16)
+texture = ExtResource("1_057ip")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(16, 14)
-scale = Vector2(2, 2)
-texture = ExtResource("1_eo70j")
-
-[node name="Number" type="Label" parent="."]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 25.0
-offset_right = 30.0
-offset_bottom = 42.0
-theme_override_font_sizes/font_size = 12
-text = "23"
+[node name="Amount" type="Label" parent="Icon" unique_id=1286646668]
+unique_name_in_owner = true
+offset_left = -14.0
+offset_top = 6.0
+offset_right = 18.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_x7rkh")
+theme_override_font_sizes/font_size = 8
+text = "125"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoverAnimation" type="AnimationPlayer" parent="." unique_id=726947111]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_neygn")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://dlsc0dlrbgr70"]
+
+[ext_resource type="Texture2D" uid="uid://5hh3wsjpoqtl" path="res://Graphics/Player_robot.png" id="1_3qydi"]
+[ext_resource type="Script" uid="uid://d388ojcfif118" path="res://Player/Scripts/player.gd" id="1_ddoul"]
+[ext_resource type="Script" uid="uid://b7iarl0jxqggv" path="res://Components/IsometricSimpleNavigation.gd" id="2_tok1r"]
+[ext_resource type="Script" uid="uid://dpaqr1q232xyc" path="res://Components/MoveComponent.gd" id="3_ddoul"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3lat"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tok1r"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddoul"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8g4oa"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ysni"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlldt"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1rgi"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j23h2"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0j2ni"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0k0e"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wa8t"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7tob"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm7nj"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mea3"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v5gs"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sa4y"]
+atlas = ExtResource("1_3qydi")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2ndj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3lat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tok1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddoul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g4oa")
+}],
+"loop": true,
+"name": &"Move_down_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ysni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlldt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1rgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j23h2")
+}],
+"loop": true,
+"name": &"Move_down_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0j2ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0k0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wa8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7tob")
+}],
+"loop": true,
+"name": &"Move_up_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm7nj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mea3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7v5gs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sa4y")
+}],
+"loop": true,
+"name": &"Move_up_right",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tok1r"]
+size = Vector2(12, 11)
+
+[node name="Player" type="Node2D" unique_id=377380329]
+z_index = 2
+y_sort_enabled = true
+script = ExtResource("1_ddoul")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=476031938]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(-1, -9)
+sprite_frames = SubResource("SpriteFrames_l2ndj")
+animation = &"Move_up_right"
+
+[node name="MakeTransaprentArea" type="Area2D" parent="AnimatedSprite2D" unique_id=1785877112]
+collision_mask = 0
+
+[node name="Transparent_collision" type="CollisionShape2D" parent="AnimatedSprite2D/MakeTransaprentArea" unique_id=1229011105]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_tok1r")
+
+[node name="GatherArea" type="Area2D" parent="AnimatedSprite2D" unique_id=946153673]
+position = Vector2(0, 15)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Gather_collision" type="CollisionShape2D" parent="AnimatedSprite2D/GatherArea" unique_id=1954402471]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_tok1r")
+
+[node name="Components" type="Node" parent="." unique_id=1908674375]
+
+[node name="IsometricNavigation" type="Node" parent="Components" unique_id=367936838 node_paths=PackedStringArray("move_component")]
+script = ExtResource("2_tok1r")
+move_component = NodePath("../MoveComponent")
+metadata/_custom_type_script = "uid://b7iarl0jxqggv"
+
+[node name="MoveComponent" type="Node" parent="Components" unique_id=1930893196 node_paths=PackedStringArray("Actor", "Navigation_Component")]
+script = ExtResource("3_ddoul")
+Actor = NodePath("../..")
+Navigation_Component = NodePath("../IsometricNavigation")
+Speed = 80.0
+metadata/_custom_type_script = "uid://dpaqr1q232xyc"
+
+[node name="GatherTimer" type="Timer" parent="." unique_id=1166267714]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="target_reached" from="Components/MoveComponent" to="." method="_on_move_component_target_reached"]
+[connection signal="timeout" from="GatherTimer" to="." method="_on_gather_timer_timeout"]

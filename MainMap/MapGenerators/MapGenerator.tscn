@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3kmjyhhmn076"]
-
-[ext_resource type="Script" uid="uid://dt5tuqjh55uv3" path="res://MainMap/MapGenerators/map_generator.gd" id="1_7p5d3"]
-
-[node name="MapGenerator" type="Node2D"]
-script = ExtResource("1_7p5d3")
-neigbouring_impact = 4

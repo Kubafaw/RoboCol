@@ -11,14 +11,11 @@ var next_position : Vector2
 var moved : bool = false
 
 signal target_reached
-
-func _ready() -> void:
-	actual_position = Actor.global_position
 	
 func _get_new_point() -> void:
-	var tile_map_position = Gamedata._Main_Map._get_tile_position(Actor.global_position)
-	if Actor.global_position != Gamedata._Main_Map._global_tile_position(tile_map_position):
-		next_position = Gamedata._Main_Map._global_tile_position(tile_map_position)
+	var tile_map_position = MN._MainM._get_current_tile_position(Actor.global_position + Vector2(0,8))
+	if Actor.global_position != MN._MainM._global_tile_position(tile_map_position):
+		next_position = MN._MainM._global_tile_position(tile_map_position)
 	else:
 		next_position = Navigation_Component._get_next_point(tile_map_position)
 
@@ -44,6 +41,6 @@ func _physics_process(delta: float) -> void:
 		_get_new_point()
 		
 	Actor._change_animation(move_range)
-
+	
 func _same_position() -> void:
 	emit_signal("target_reached")

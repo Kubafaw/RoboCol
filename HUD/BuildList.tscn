@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ds1u1wddxn1up"]
+
+[ext_resource type="Script" uid="uid://5utif8303bgj" path="res://HUD/build_list.gd" id="1_14f3p"]
+[ext_resource type="PackedScene" uid="uid://crqb6jw4vr2qj" path="res://HUD/BuildListSlot.tscn" id="2_ge6h4"]
+[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="3_16c2x"]
+[ext_resource type="Resource" uid="uid://cl18bwli1elk7" path="res://Buildings/Resources/Lumberjack.tres" id="4_16c2x"]
+[ext_resource type="Resource" uid="uid://bsxov12nq1m2j" path="res://Buildings/Resources/HUB.tres" id="4_redbt"]
+
+[node name="BuildList" type="Control" unique_id=1346066741]
+modulate = Color(1, 1, 1, 0.29411766)
+custom_minimum_size = Vector2(600, 140)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_14f3p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=914699911]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HUB" parent="HBoxContainer" unique_id=1290825241 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("3_16c2x")
+building_stats = ExtResource("4_redbt")
+
+[node name="LumberJack" parent="HBoxContainer" unique_id=1115829013 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("3_16c2x")
+building_stats = ExtResource("4_16c2x")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

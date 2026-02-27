@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dxrs0vglq7xtf"]
+
+[ext_resource type="Script" uid="uid://c1iggwen0sayw" path="res://Buildings/extract_building.gd" id="1_1sug7"]
+[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="2_x2cic"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ejj4"]
+resource_local_to_scene = true
+size = Vector2(64, 32)
+
+[node name="ExtractBuilding" type="Node2D" unique_id=826777140 node_paths=PackedStringArray("extraction_timer", "sprite", "make_transparent_area")]
+script = ExtResource("1_1sug7")
+extraction_timer = NodePath("ExtractionTimer")
+sprite = NodePath("Sprite2D")
+make_transparent_area = NodePath("MakeTransparentArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=834900961]
+position = Vector2(0, -12)
+texture = ExtResource("2_x2cic")
+
+[node name="MakeTransparentArea" type="Area2D" parent="." unique_id=1185259308]
+unique_name_in_owner = true
+position = Vector2(0, -22)
+collision_layer = 0
+
+[node name="MakeTransparentShape" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=1179857991]
+unique_name_in_owner = true
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_7ejj4")
+
+[node name="ExtractionTimer" type="Timer" parent="." unique_id=1805645198]
+one_shot = true
+
+[connection signal="area_entered" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_entered"]
+[connection signal="area_exited" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_exited"]
+[connection signal="timeout" from="ExtractionTimer" to="." method="_on_extraction_timer_timeout"]

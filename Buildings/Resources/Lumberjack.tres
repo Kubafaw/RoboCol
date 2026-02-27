@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BuildingStats" format=3 uid="uid://cl18bwli1elk7"]
+
+[ext_resource type="Script" uid="uid://cpntsqha02r4v" path="res://Buildings/Resources/BuildingData.gd" id="1_7w4wn"]
+[ext_resource type="PackedScene" uid="uid://dxrs0vglq7xtf" path="res://Buildings/ExtractBuilding.tscn" id="1_nspbf"]
+[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="2_w0wde"]
+
+[resource]
+script = ExtResource("1_7w4wn")
+size = Vector2i(2, 2)
+building = ExtResource("1_nspbf")
+image = ExtResource("2_w0wde")
+extraction_building = true
+extraction_time = 2.0
+extraction_tile_type = 1
+metadata/_custom_type_script = "uid://cpntsqha02r4v"

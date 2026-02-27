@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://477lj4a4f20i"]
+
+[ext_resource type="Script" uid="uid://usqw7qx4db3u" path="res://Resources/Nodes/resource_node.gd" id="1_4yr5q"]
+[ext_resource type="Texture2D" uid="uid://j4xv6r4m2mkd" path="res://Graphics/Berry_bush.png" id="2_et61w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_et61w"]
+resource_local_to_scene = true
+size = Vector2(32, 24)
+
+[node name="ResourceNode" type="Node2D" unique_id=207548890 node_paths=PackedStringArray("sprite", "make_transparent_area")]
+script = ExtResource("1_4yr5q")
+size = Vector2i(1, 1)
+sprite = NodePath("Sprite2D")
+make_transparent_area = NodePath("MakeTransparentArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=111352581]
+unique_name_in_owner = true
+texture = ExtResource("2_et61w")
+offset = Vector2(0, -16)
+
+[node name="MakeTransparentArea" type="Area2D" parent="." unique_id=2074253728]
+unique_name_in_owner = true
+position = Vector2(0, -22)
+collision_layer = 0
+
+[node name="MakeTransparentShape" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=1920637648]
+unique_name_in_owner = true
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_et61w")
+
+[connection signal="area_entered" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_entered"]
+[connection signal="area_exited" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_exited"]

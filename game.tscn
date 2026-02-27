@@ -1,68 +1,102 @@
-[gd_scene load_steps=13 format=3 uid="uid://bhlwisdjn474p"]
+[gd_scene format=3 uid="uid://daibsi4yt7f1g"]
 
-[ext_resource type="Script" uid="uid://o0lv5ld0uxhm" path="res://game.gd" id="1_7jktm"]
-[ext_resource type="PackedScene" uid="uid://csj0g6lyv5kbn" path="res://MainMap/MainMap.tscn" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://bxatemoo7fe8m" path="res://Player.tscn" id="2_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://cx7rfvu3rvvrm" path="res://ResourceNodes/Pine_tree_node.tscn" id="2_j5wjh"]
-[ext_resource type="Script" uid="uid://bbjckgc2p8pp2" path="res://sub_pixel_camera.gd" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://chdv33cevcx4" path="res://ResourceNodes/Boulder_node.tscn" id="3_hve3p"]
-[ext_resource type="Texture2D" uid="uid://lvdak7mh3f07" path="res://Graphics/Tile_marker.png" id="4_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://cu1136k081yqq" path="res://Buildings/LaunchPad.tscn" id="4_mfdv2"]
-[ext_resource type="Texture2D" uid="uid://cun2jny3gibxd" path="res://Graphics/Progress_fill.png" id="6_eow3j"]
-[ext_resource type="Texture2D" uid="uid://cd8hbihv10k1r" path="res://Graphics/Progress_boundry.png" id="7_j5wjh"]
-[ext_resource type="PackedScene" uid="uid://chwwdl5dbhsq7" path="res://HUD/HUD.tscn" id="9_vef74"]
+[ext_resource type="Script" uid="uid://6xpcge8mv0m8" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="Texture2D" uid="uid://5y3xis872gc3" path="res://Graphics/Tile_marker.png" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://4efytf82pgop" path="res://MainMap/MainMap.tscn" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dlsc0dlrbgr70" path="res://Player/Player.tscn" id="4_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://cjfhg0tnrju27" path="res://Graphics/Progress_fill.png" id="5_ryrav"]
+[ext_resource type="Texture2D" uid="uid://b7ufk618xei7" path="res://Graphics/Progress_boundry.png" id="6_eow3j"]
+[ext_resource type="PackedScene" uid="uid://cwqexdcopkahu" path="res://HUD/HUD.tscn" id="7_eow3j"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5wjh"]
-size = Vector2(2, 2)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc0e3"]
+size = Vector2(12, 6)
 
-[node name="Game" type="Node2D"]
-script = ExtResource("1_7jktm")
-resource_node_scene_tmp = ExtResource("2_j5wjh")
-resource_node_scene_tmp2 = ExtResource("3_hve3p")
-building_scene_tmp = ExtResource("4_mfdv2")
+[node name="Game" type="Node2D" unique_id=953293632]
+y_sort_enabled = true
+script = ExtResource("1_80nbo")
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("object")]
-zoom = Vector2(2, 2)
-script = ExtResource("3_feb5d")
-object = NodePath("../Player")
+[node name="MainMap" parent="." unique_id=1479695019 instance=ExtResource("2_feb5d")]
 
-[node name="MainMap" parent="." instance=ExtResource("1_80nbo")]
-z_index = -1
+[node name="Camera" type="Camera2D" parent="." unique_id=1219193820]
+unique_name_in_owner = true
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
-[node name="Player" parent="." instance=ExtResource("2_e2o6t")]
-position = Vector2(32, 12)
-
-[node name="Pointer" type="Sprite2D" parent="."]
-modulate = Color(0, 0, 1, 0.568627)
-position = Vector2(16, 12)
-texture = ExtResource("4_fc0e3")
-
-[node name="MakeTransparentArea" type="Area2D" parent="Pointer"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pointer/MakeTransparentArea"]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_j5wjh")
-
-[node name="TargetMarker" type="Sprite2D" parent="."]
-modulate = Color(0, 0.458824, 1, 0.533333)
-position = Vector2(24, 8)
-texture = ExtResource("4_fc0e3")
-
-[node name="ActionProgress" type="TextureProgressBar" parent="."]
+[node name="ActionProgress" type="TextureProgressBar" parent="." unique_id=428345183]
+unique_name_in_owner = true
 visible = false
-z_index = 1
-custom_minimum_size = Vector2(5, 5)
-offset_left = -8.0
-offset_top = -23.0
-offset_right = 32.0
-offset_bottom = 17.0
-max_value = 1.0
-step = 0.01
-value = 0.2
-texture_under = ExtResource("6_eow3j")
-texture_over = ExtResource("7_j5wjh")
-texture_progress = ExtResource("6_eow3j")
-tint_under = Color(0.180005, 0.180005, 0.180005, 1)
-tint_progress = Color(0, 0.741176, 0, 1)
+z_index = 3
+offset_left = -18.0
+offset_top = -44.0
+offset_right = 18.0
+offset_bottom = -30.0
+min_value = -0.05
+max_value = 1.25
+step = 0.001
+value = 0.5
+fill_mode = 6
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("5_ryrav")
+texture_over = ExtResource("6_eow3j")
+texture_progress = ExtResource("5_ryrav")
+tint_under = Color(0.266575, 0.266575, 0.266575, 1)
+tint_progress = Color(0.280924, 0.603341, 0.228057, 1)
 
-[node name="Hud" parent="." instance=ExtResource("9_vef74")]
+[node name="Player" parent="." unique_id=449489402 instance=ExtResource("4_fc0e3")]
+unique_name_in_owner = true
+position = Vector2(28, 19)
+
+[node name="TargetMarker" type="Sprite2D" parent="Player" unique_id=1821123609]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 0, 0, 0.490196)
+show_behind_parent = true
+top_level = true
+z_index = 2
+y_sort_enabled = true
+position = Vector2(0, 13)
+texture = ExtResource("2_e2o6t")
+
+[node name="MakeTransparentArea" type="Area2D" parent="Player/TargetMarker" unique_id=1210611149]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TargetMarker/MakeTransparentArea" unique_id=503352989]
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="Pointer" type="Sprite2D" parent="Player" unique_id=186042494]
+unique_name_in_owner = true
+self_modulate = Color(0, 0, 1, 0.490196)
+show_behind_parent = true
+top_level = true
+z_index = 2
+y_sort_enabled = true
+position = Vector2(0, 13)
+texture = ExtResource("2_e2o6t")
+
+[node name="MakeTransparentArea" type="Area2D" parent="Player/Pointer" unique_id=479480258]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Pointer/MakeTransparentArea" unique_id=361604685]
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="Building" type="Sprite2D" parent="Player" unique_id=1051724935]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.7058824)
+show_behind_parent = true
+top_level = true
+z_index = 2
+y_sort_enabled = true
+position = Vector2(0, 13)
+
+[node name="MakeTransparentArea" type="Area2D" parent="Player/Building" unique_id=1865269240]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Building/MakeTransparentArea" unique_id=940218244]
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="Hud" parent="." unique_id=505432385 instance=ExtResource("7_eow3j")]

@@ -1,0 +1,88 @@
+extends Control
+
+class_name Inventory
+
+@onready var _inventory : NinePatchRect = %Inventory
+
+@export var _inventory_slot : PackedScene
+@export var type : String
+@export var inv_size : Vector2i
+
+var _inventory_visible : bool = false
+var _inventory_slots : Array[InventorySlot] = []
+var _in_focus : bool = false
+var mouse_last_pos : Vector2
+var last_pos : Vector2 
+var _panel_moving : bool = false
+var target : Node2D = null
+
+func _ready() -> void:
+	%Inventory.hide()
+	_clear_panel(_inventory)
+	var _inv_slot : InventorySlot
+	for _y in range(inv_size.y):
+		for _x in range(inv_size.x):
+			_inv_slot = _inventory_slot.instantiate()
+			_inv_slot.inventory_main_node = self
+			_inv_slot._setup(Vector2(9 + 16*_x, 10 + 16 *_y))
+			%Inventory.add_child(_inv_slot)
+			_inventory_slots.append(_inv_slot)
+			
+
+func _process(_delta: float) -> void:
+	if _panel_moving and Input.is_action_pressed("Main_Action"):
+		position = last_pos - mouse_last_pos + get_viewport().get_mouse_position()
+	else:
+		_panel_moving = false
+		
+	if !_in_focus:
+		return
+	
+	if Input.is_action_just_pressed("Main_Action"):
+		mouse_last_pos = get_viewport().get_mouse_position()
+		last_pos = position
+		_panel_moving = true
+	
+func _process_inventory(inventory: Dictionary[String, int], new_target : Node2D) -> void:
+	if _inventory_visible and target == new_target:
+		_hide_inventory()
+	else:
+		target = new_target
+		_display_inventory(inventory)
+	
+func _update_inventory(inventory: Dictionary[String, int], new_target : Node2D) -> void:
+	if _inventory_visible and target == new_target:
+		_display_inventory(inventory)
+
+func _display_inventory(inventory: Dictionary[String, int]) -> void:
+	_inventory_visible = true
+	self.mouse_filter = Control.MOUSE_FILTER_STOP
+	var _index : int = 0
+	for _item in inventory:
+		_inventory_slots[_index]._change_data(inventory[_item], _item)
+		_inventory_slots[_index].show()
+		_index += 1
+	while _index < inv_size.x * inv_size.y:
+		_inventory_slots[_index].hide()
+		_index +=1
+	%Inventory.show()	
+	
+				
+func _hide_inventory() -> void:
+	_inventory_visible = false
+	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	%Inventory.hide()
+	
+func _clear_panel(_node: Node) -> void:
+	for _child in _node.get_children():
+		_child.queue_free()
+		
+func _transfer_reosurces(amount : int, resource : String):
+	if MN._HUD.transfer_resource(amount, resource, target):
+		target._remove_resource(resource, amount)
+
+func _on_mouse_entered() -> void:
+	_in_focus = true
+
+func _on_mouse_exited() -> void:
+	_in_focus = false
