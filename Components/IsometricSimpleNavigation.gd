@@ -9,7 +9,7 @@ var x_movement_prior : bool = true
 @export var move_component : MoveComponent
 
 func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
-	if target == Vector2(INF, INF):
+	if not target.is_finite():
 		return _current_pos
 	
 	if target == _current_pos:
@@ -34,7 +34,7 @@ func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 			if !tile_occupancy == null:
 				if next_nav_point == Vector2(0, 0):
 					var y_diff = abs(_current_pos.y - tile_occupancy.tile_position.y)
-					var y_diff2 = abs(_current_pos.y - (tile_occupancy.tile_position.y - tile_occupancy.size.y + 1))
+					var y_diff2 = abs(_current_pos.y - (tile_occupancy.tile_position.y - tile_occupancy._get_size().y + 1))
 					if abs(target.y - (_current_pos.y + y_diff + 1)) < abs(target.y - (_current_pos.y - y_diff2 - 1)):
 						next_nav_point = Vector2(0, y_diff + 1)
 					else:
@@ -51,7 +51,7 @@ func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 			if !tile_occupancy == null:
 				if next_nav_point == Vector2(0, 0):
 					var x_diff = abs(_current_pos.x - tile_occupancy.tile_position.x)
-					var x_diff2 = abs(_current_pos.x - (tile_occupancy.tile_position.x - tile_occupancy.size.x + 1))
+					var x_diff2 = abs(_current_pos.x - (tile_occupancy.tile_position.x - tile_occupancy._get_size().x + 1))
 					if abs(target.x - (_current_pos.x + x_diff + 1)) < abs(target.x - (_current_pos.x - x_diff2 - 1)):
 						next_nav_point = Vector2(x_diff + 1, 0)
 					else:

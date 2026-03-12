@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ResourceNodeData" format=3 uid="uid://b4k8ah28x6pvs"]
+
+[ext_resource type="Texture2D" uid="uid://2n6ab85mymkv" path="res://Graphics/Pine_tree_1.png" id="1_cgfrj"]
+[ext_resource type="Texture2D" uid="uid://dtcpumgqg8a52" path="res://Graphics/Pine_tree_2.png" id="2_giw3y"]
+[ext_resource type="Script" uid="uid://co668gve3d351" path="res://Resources/Nodes/Resources/ResourceNodeData.gd" id="2_v6bku"]
+[ext_resource type="Texture2D" uid="uid://ci1lcksk2112x" path="res://Graphics/Pine_tree_3.png" id="3_t0ant"]
+[ext_resource type="Texture2D" uid="uid://b5o05pxpdkq7" path="res://Graphics/Pine_tree_4.png" id="4_y5mrd"]
+
+[resource]
+script = ExtResource("2_v6bku")
+image = Array[Texture2D]([ExtResource("1_cgfrj"), ExtResource("2_giw3y"), ExtResource("3_t0ant"), ExtResource("4_y5mrd")])
+size = Vector2i(1, 1)
+GatherTime = 1.0
+DropAmount = 3
+wind_effected = true
+metadata/_custom_type_script = "uid://co668gve3d351"

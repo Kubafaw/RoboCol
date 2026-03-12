@@ -1,25 +1,34 @@
 extends Node
 
+# All reosurces ids
 enum possible_resources{Logs = 0, Rock_pile = 1}
 
 # Resources [number : name]
 var Resources : Dictionary[int, String] = {
-	0 : "Logs",
-	1 : "Rock_pile",
+	possible_resources.Logs : "Logs",
+	possible_resources.Rock_pile : "Rock_pile",
+}
+
+# Categories of industries
+enum categories{All = 0, Carpentry = 1, Masonary = 2, Pottery = 3}
+
+# Resource categories [number : category]
+var Resource_categories : Dictionary[int, int] = {
+	possible_resources.Logs : categories.Carpentry,
+	possible_resources.Rock_pile : categories.Masonary,
 }
 
 # Drops [name : graphic] 
-var Drops : Dictionary[String, Texture] = {
-	"Logs" : load("res://Graphics/Logs.png"),
-	"Rock_pile" : load("res://Graphics/Rock_pile.png"),
-	"Berries" : load("res://Graphics/Berries.png"),
-	"Sticks" : load("res://Graphics/Sticks.png"),
+var Drops : Dictionary[int, Texture] = {
+	possible_resources.Logs : load("res://Graphics/Logs.png"),
+	possible_resources.Rock_pile : load("res://Graphics/Rock_pile.png"),
 }
 
-# Nodes: [Texture, GatherTime, Drop, DropAmount, size]
-var Nodes : Dictionary[String, Array] = {
-	"Pine_tree" : [load("res://Graphics/Pine_tree.png"), 1.0, "Logs", 3, Vector2i(1, 1)],
-	"Berry_bush" : [load("res://Graphics/Berry_bush.png"), 1.0, "Berries", 3, Vector2i(1, 1)],
-	"Berry_bush_harvested" : [load("res://Graphics/Berry_bush_harvested.png"), 1.0, "Sticks", 3, Vector2i(1, 1)],
-	"Boulder" : [load("res://Graphics/Boulder.png"), 1.0, "Rock_pile", 3, Vector2i(1, 1)],
+# All possible nodes ids
+enum possible_nodes{Pine_tree = 0, Boulder = 1}
+
+# Nodes resource data
+var Nodes : Dictionary[int, ResourceNodeData] = {
+	possible_nodes.Pine_tree : load("res://Resources/Nodes/Resources/PineTree.tres"),
+	possible_nodes.Boulder : load("res://Resources/Nodes/Resources/Boulder.tres"),
 }

@@ -13,12 +13,14 @@ script = ExtResource("1_amwvk")
 unique_name_in_owner = true
 mouse_filter = 2
 mouse_behavior_recursive = 2
+_inv_name = "Player"
 type = "Player"
 
 [node name="HubInventory" parent="CanvasLayer" unique_id=384012395 instance=ExtResource("4_amwvk")]
 unique_name_in_owner = true
 mouse_filter = 2
 mouse_behavior_recursive = 2
+_inv_name = "HUB"
 type = "HUB"
 
 [node name="BuildList" parent="CanvasLayer" unique_id=1346066741 instance=ExtResource("3_ja1d4")]

@@ -26,3 +26,13 @@ func _get_surrounding_tiles(_obj_size : Vector2i) -> Array[Vector2i]:
 		for _y in range(-1, _obj_size.y + 1):
 			surrounding_tiles.append(Vector2i(-_x, -_y))
 	return surrounding_tiles
+	
+# Get closest neighbouring tile for interacting with map object
+func _get_closest_tile(object_position: Vector2i, positions: Array[Vector2i]) -> Vector2i:
+	var current_min : float = positions[0].distance_to(object_position)
+	var current_closest_position : Vector2i = positions[0]
+	for _position : Vector2i in positions:
+		if current_min > _position.distance_to(object_position):
+			current_min = _position.distance_to(object_position)
+			current_closest_position = _position
+	return current_closest_position

@@ -2,12 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cpntsqha02r4v" path="res://Buildings/Resources/BuildingData.gd" id="1_1pcs8"]
 [ext_resource type="PackedScene" uid="uid://duqhtbtu8w4ur" path="res://Buildings/HUB.tscn" id="1_ysyi2"]
-[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="2_cca72"]
+[ext_resource type="Texture2D" uid="uid://b1fc3kf6t2xdd" path="res://Graphics/HUB_icon.png" id="2_cca72"]
 
 [resource]
 script = ExtResource("1_1pcs8")
 size = Vector2i(2, 2)
 building = ExtResource("1_ysyi2")
 image = ExtResource("2_cca72")
-hub = true
 metadata/_custom_type_script = "uid://cpntsqha02r4v"

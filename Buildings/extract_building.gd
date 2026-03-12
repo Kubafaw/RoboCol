@@ -3,8 +3,6 @@ extends Building
 class_name ExstractBuilding
 
 @export var extraction_timer : Timer
-
-
 var inventory : Dictionary[String, int] = {}
 var inventory_shown : bool = false
 
@@ -32,7 +30,9 @@ func _extract() -> void:
 	# additional extract time calculation 
 	extraction_timer.start(building_stats.extraction_time)
 	
-
 func _on_extraction_timer_timeout() -> void:
-	hub._add_resource(ResD.Resources[building_stats.resource], 1)
+	hub._add_resource(building_stats.resource, 1)
 	_extract()
+	
+func update_shader(_color: Color) -> void:
+	pass

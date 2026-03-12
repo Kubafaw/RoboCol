@@ -1,15 +1,69 @@
 [gd_scene format=3 uid="uid://477lj4a4f20i"]
 
 [ext_resource type="Script" uid="uid://usqw7qx4db3u" path="res://Resources/Nodes/resource_node.gd" id="1_4yr5q"]
-[ext_resource type="Texture2D" uid="uid://j4xv6r4m2mkd" path="res://Graphics/Berry_bush.png" id="2_et61w"]
+[ext_resource type="Texture2D" uid="uid://b5o05pxpdkq7" path="res://Graphics/Pine_tree_4.png" id="2_et61w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_et61w"]
 resource_local_to_scene = true
 size = Vector2(32, 24)
 
-[node name="ResourceNode" type="Node2D" unique_id=207548890 node_paths=PackedStringArray("sprite", "make_transparent_area")]
+[sub_resource type="Animation" id="Animation_et61w"]
+resource_name = "Gather"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.033333335, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 0.21763788, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hb1jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5y4ao"]
+resource_name = "Vanish"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.9318702, 4.1410546),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5y4ao"]
+_data = {
+&"Gather": SubResource("Animation_et61w"),
+&"RESET": SubResource("Animation_hb1jh"),
+&"Vanish": SubResource("Animation_5y4ao")
+}
+
+[node name="ResourceNode" type="Node2D" unique_id=207548890 node_paths=PackedStringArray("animations", "sprite", "make_transparent_area")]
 script = ExtResource("1_4yr5q")
-size = Vector2i(1, 1)
+animations = NodePath("AnimationPlayer")
 sprite = NodePath("Sprite2D")
 make_transparent_area = NodePath("MakeTransparentArea")
 
@@ -27,6 +81,10 @@ collision_layer = 0
 unique_name_in_owner = true
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_et61w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=815436578]
+root_node = NodePath("../Sprite2D")
+libraries/ = SubResource("AnimationLibrary_5y4ao")
 
 [connection signal="area_entered" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_entered"]
 [connection signal="area_exited" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_exited"]

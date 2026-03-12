@@ -11,9 +11,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fc0e3"]
 size = Vector2(12, 6)
 
-[node name="Game" type="Node2D" unique_id=953293632]
+[node name="Game" type="Node2D" unique_id=953293632 node_paths=PackedStringArray("building_pointer", "action_progress")]
 y_sort_enabled = true
 script = ExtResource("1_80nbo")
+building_pointer = NodePath("Player/Building")
+action_progress = NodePath("ActionProgress")
 
 [node name="MainMap" parent="." unique_id=1479695019 instance=ExtResource("2_feb5d")]
 
@@ -94,6 +96,7 @@ y_sort_enabled = true
 position = Vector2(0, 13)
 
 [node name="MakeTransparentArea" type="Area2D" parent="Player/Building" unique_id=1865269240]
+unique_name_in_owner = true
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Building/MakeTransparentArea" unique_id=940218244]

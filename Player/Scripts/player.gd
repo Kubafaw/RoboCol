@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Player
 
-var inventory : Dictionary[String, int] = {}
+var inventory : Dictionary[ResD.possible_resources, int] = {}
 
 var interaction_node : MapObject
 var gather_action_time : float
@@ -19,7 +19,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	# Processing gather action timer if gathering
 	if interaction_node != null:
-		MN._GameN.ActionProgress.value = (gather_action_time - %GatherTimer.time_left) / gather_action_time
+		MN._GameN.action_progress.value = (gather_action_time - %GatherTimer.time_left) / gather_action_time
 	# Updating currently visible regions
 	var current_tile : Vector2 = MN._MainM._get_current_tile_position(global_position - Vector2(0, -8))
 	MN._MainM._update_regions(MN._MainM._get_current_region(current_tile))
@@ -40,7 +40,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 		# Resetting action after input
 		interaction_node = null
 		%GatherTimer.stop()
-		MN._GameN.ActionProgress.hide()
+		MN._GameN.action_progress.hide()
 		# Logic for clicking on MapObject
 		if tile_occupancy != null:
 			var _positions_array : Array[Vector2i] = []
@@ -48,7 +48,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 			for _position : Vector2i in PosFuncs._get_neighbouring_tiles(tile_occupancy._get_size()):
 				_positions_array.append(tile_occupancy.tile_position + _position)
 			while true:
-				new_tile = _get_closest_tile(_positions_array)
+				new_tile = PosFuncs._get_closest_tile(MN._MainM._get_current_tile_position(global_position), _positions_array)
 				if MN._MainM._get_tile_occupancy(new_tile) == null:
 					break
 				else:
@@ -82,33 +82,22 @@ func _change_animation(direction: Vector2) -> void:
 	if direction.x < -0.3 and direction.y < -0.3:
 		$AnimatedSprite2D.play("Move_up_left")
 
-# Get closest neighbouring tile for interacting with map object
-func _get_closest_tile(positions: Array[Vector2i]) -> Vector2i:
-	var current_tile : Vector2i = MN._MainM._get_current_tile_position(global_position)
-	var current_min : float = positions[0].distance_to(current_tile)
-	var current_closest_position : Vector2i = positions[0]
-	for _position : Vector2i in positions:
-		if current_min > _position.distance_to(current_tile):
-			current_min = _position.distance_to(current_tile)
-			current_closest_position = _position
-	return current_closest_position
-
 # Logic for interaction after reaching it
 func _on_move_component_target_reached() -> void:
 	MN._GameN._hide_target_marker()
 	if interaction_node != null:
 		if interaction_node is ResourceNode:
-			%GatherTimer.start(interaction_node.gather_time)
-			gather_action_time = interaction_node.gather_time
-			MN._GameN.ActionProgress.show()
+			%GatherTimer.start(interaction_node.node_data.GatherTime)
+			gather_action_time = interaction_node.node_data.GatherTime
+			MN._GameN.action_progress.show()
 		if interaction_node is HUB:
 			interaction_node._interaction()
 		
-	var _current_tile_pos : Vector2i = MN._MainM._get_current_tile_position(global_position)
+	# var _current_tile_pos : Vector2i = MN._MainM._get_current_tile_position(global_position)
 	$Components/IsometricNavigation._set_target(Vector2(INF, INF))
 
 # Logic for adding resource to player inventory
-func _add_resource(_resource : String, _amount : int) -> void:
+func _add_resource(_resource : ResD.possible_resources, _amount : int) -> void:
 	if _resource in inventory.keys():
 		inventory[_resource] += _amount
 	else:
@@ -117,7 +106,7 @@ func _add_resource(_resource : String, _amount : int) -> void:
 	MN._HUD._update_player_inventory(inventory)
 
 # Removing resource from player inventory
-func _remove_resource(_resource : String, _amount : int) -> void:
+func _remove_resource(_resource : ResD.possible_resources, _amount : int) -> void:
 	inventory[_resource] -= _amount
 	if inventory[_resource] == 0:
 		inventory.erase(_resource)
@@ -127,8 +116,7 @@ func _remove_resource(_resource : String, _amount : int) -> void:
 # Logic for gathering resource node
 func _on_gather_timer_timeout() -> void:
 	if interaction_node._action(self):
-		%GatherTimer.start(interaction_node.gather_time)
-		gather_action_time = interaction_node.gather_time
-		MN._GameN.ActionProgress.show()
+		%GatherTimer.start(gather_action_time)
+		MN._GameN.action_progress.show()
 	else:
-		MN._GameN.ActionProgress.hide()
+		MN._GameN.action_progress.hide()

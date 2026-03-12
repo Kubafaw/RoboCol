@@ -6,6 +6,7 @@ class_name Region
 
 @export var cords : Vector2i
 @export var initial : bool
+@export var resource_nodes : Node2D
 
 var max_nodes : int = 0
 var spawned_resources : int = 0
@@ -60,19 +61,16 @@ func _generate_resource(_try: int) -> void:
 
 	if resource_nodes.size() > 0:
 		var resource_node : ResourceNode = MN._MainM.resource_node_scene.instantiate()
-		var res_data : Array = ResD.Nodes[resource_nodes.pick_random()]
-		resource_node._set_sprite(res_data[0])
-		resource_node.gather_time = res_data[1]
-		resource_node.resource = res_data[2]
-		resource_node.amount_to_extract = res_data[3]
-		resource_node.size = res_data[4]
+		var res_data : ResourceNodeData = ResD.Nodes[resource_nodes.pick_random()]
+		resource_node.node_data = res_data
 		resource_node.position = MN._MainM._global_tile_position(Vector2(random_x, random_y))
 		resource_node.region = self
 		%ResourceNodes.add_child(resource_node)
 		spawned_resources += 1
 
 func _on_resource_respawn_timer_timeout() -> void:
-	_generate_resource(0)
+	if !visible and !hub_center:
+		_generate_resource(0)
 	if spawned_resources < max_nodes:
 		%ResourceRespawnTimer.start()
 
@@ -95,6 +93,13 @@ func _toggle_on_middle() -> void:
 # Toggle of the visibility of region center marks
 func _toggle_of_middle() -> void:
 	%RegionMiddle.hide()
+	
+func get_resource_nodes(resource: ResD.possible_resources) -> Array[ResourceNode]:
+	var nodes : Array[ResourceNode]
+	for node : ResourceNode in resource_nodes.get_children():
+		if node.bots_gathering == 0 and node.node_data.Drop == resource:
+			nodes.append(node)
+	return nodes
 	
 # Get tile type
 func _get_tile_type(_tile_cords : Vector2i) -> String:

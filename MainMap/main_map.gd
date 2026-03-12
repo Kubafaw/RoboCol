@@ -17,6 +17,10 @@ var tiles_occupancy : Dictionary[Vector2i, Node2D] = {}
 var regions : Dictionary[Vector2i, Region] = {}
 var terrain_types : int 
 var last_region : Vector2i = Vector2i(-100, -100)
+var wind_strength : float = 0.0
+var wind_change : float = 0.0
+var time_passed : float = 0.0
+var time_interval : float = 30.0
 
 func _ready():
 	# set to GAMEDATA
@@ -26,6 +30,15 @@ func _ready():
 	noise = FastNoiseLite.new()
 	noise.seed = randi()
 	noise.frequency = 0.02
+	time_passed = time_interval
+	
+func _process(_delta: float) -> void:
+	time_passed += _delta
+	if time_passed > time_interval:
+		time_passed -= time_interval
+		wind_change = clamp((wind_change + randf() - 0.5) / 100.0, -0.001, 0.001)
+		
+	wind_strength = wind_strength * 0.99 + abs(sin(time_passed)) * wind_change
 	
 func _get_current_tile_position(_position: Vector2) -> Vector2i:
 	return map_tiles.local_to_map(to_local(_position))
@@ -64,8 +77,10 @@ func _add_building(_tile: Vector2i, _building : Building) -> void:
 			regions[region_cords].hub = _building
 			_building.regions.append(regions[region_cords])
 	# Logic for extraction building
-	if _building is ExstractBuilding:
+	if _building is not HUB:
 		_building.hub = regions[current_region].hub
+		
+	_building._start()
 	
 func _generate_region(cords: Vector2i) -> void:
 	var region : Region = region_scene.instantiate()

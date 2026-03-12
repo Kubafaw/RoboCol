@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResourceNodeData" format=3 uid="uid://bkx7nu608ame"]
+
+[ext_resource type="Script" uid="uid://co668gve3d351" path="res://Resources/Nodes/Resources/ResourceNodeData.gd" id="1_abogy"]
+[ext_resource type="Texture2D" uid="uid://hpby2w3v5yj0" path="res://Graphics/Boulder.png" id="1_lwiwf"]
+
+[resource]
+script = ExtResource("1_abogy")
+image = Array[Texture2D]([ExtResource("1_lwiwf")])
+size = Vector2i(1, 1)
+GatherTime = 1.5
+Drop = 1
+DropAmount = 3
+metadata/_custom_type_script = "uid://co668gve3d351"

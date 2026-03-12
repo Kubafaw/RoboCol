@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 		
 	Actor.global_position = actual_position.round()
 	
-	if moved and Navigation_Component._get_target() == Actor.global_position:
+	if moved and not Navigation_Component._get_target().is_finite():
 		emit_signal("target_reached")
 	elif moved and Actor.global_position == next_position:
 		_get_new_point()

@@ -20,5 +20,6 @@ func _process(_delta: float) -> void:
 		
 	if Input.is_action_just_pressed("Main_Action"):
 		MN._GameN._set_building(building_stats)
-		if building_stats.hub:
+		MN._MainM._hide_region_middle()
+		if building_stats.type == building_stats.building_type.HUB:
 			MN._MainM._show_region_middle()

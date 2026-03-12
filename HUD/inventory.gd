@@ -4,9 +4,14 @@ class_name Inventory
 
 @onready var _inventory : NinePatchRect = %Inventory
 
+@export var _inv_name : String
 @export var _inventory_slot : PackedScene
+@export var inventory_nodes : NinePatchRect
 @export var type : String
 @export var inv_size : Vector2i
+@export var _name_label : Label
+@export var category_list : OptionButton
+
 
 var _inventory_visible : bool = false
 var _inventory_slots : Array[InventorySlot] = []
@@ -15,9 +20,11 @@ var mouse_last_pos : Vector2
 var last_pos : Vector2 
 var _panel_moving : bool = false
 var target : Node2D = null
+var selected_category : ResD.categories = ResD.categories.All
 
 func _ready() -> void:
-	%Inventory.hide()
+	_name_label.text = _inv_name
+	self.hide()
 	_clear_panel(_inventory)
 	var _inv_slot : InventorySlot
 	for _y in range(inv_size.y):
@@ -27,6 +34,8 @@ func _ready() -> void:
 			_inv_slot._setup(Vector2(9 + 16*_x, 10 + 16 *_y))
 			%Inventory.add_child(_inv_slot)
 			_inventory_slots.append(_inv_slot)
+	for category in ResD.categories:
+		category_list.add_item(category)
 			
 
 func _process(_delta: float) -> void:
@@ -43,41 +52,43 @@ func _process(_delta: float) -> void:
 		last_pos = position
 		_panel_moving = true
 	
-func _process_inventory(inventory: Dictionary[String, int], new_target : Node2D) -> void:
+func _process_inventory(inventory: Dictionary[ResD.possible_resources, int], new_target : Node2D) -> void:
 	if _inventory_visible and target == new_target:
 		_hide_inventory()
 	else:
 		target = new_target
 		_display_inventory(inventory)
 	
-func _update_inventory(inventory: Dictionary[String, int], new_target : Node2D) -> void:
+func _update_inventory(inventory: Dictionary[ResD.possible_resources, int], new_target : Node2D) -> void:
 	if _inventory_visible and target == new_target:
 		_display_inventory(inventory)
 
-func _display_inventory(inventory: Dictionary[String, int]) -> void:
+func _display_inventory(inventory: Dictionary[ResD.possible_resources, int]) -> void:
 	_inventory_visible = true
 	self.mouse_filter = Control.MOUSE_FILTER_STOP
 	var _index : int = 0
 	for _item in inventory:
+		if selected_category != ResD.categories.All and ResD.Resource_categories[_item] != selected_category:
+			continue
 		_inventory_slots[_index]._change_data(inventory[_item], _item)
 		_inventory_slots[_index].show()
 		_index += 1
 	while _index < inv_size.x * inv_size.y:
 		_inventory_slots[_index].hide()
 		_index +=1
-	%Inventory.show()	
+	self.show()	
 	
 				
 func _hide_inventory() -> void:
 	_inventory_visible = false
 	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	%Inventory.hide()
+	self.hide()
 	
 func _clear_panel(_node: Node) -> void:
 	for _child in _node.get_children():
 		_child.queue_free()
 		
-func _transfer_reosurces(amount : int, resource : String):
+func _transfer_reosurces(amount : int, resource : ResD.possible_resources):
 	if MN._HUD.transfer_resource(amount, resource, target):
 		target._remove_resource(resource, amount)
 
@@ -86,3 +97,8 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	_in_focus = false
+
+
+func _on_category_list_item_selected(_index: int) -> void:
+	selected_category = _index as ResD.categories
+	_update_inventory(target.inventory, target)

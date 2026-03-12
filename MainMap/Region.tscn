@@ -4,9 +4,10 @@
 [ext_resource type="TileSet" uid="uid://dt64o5o06gpny" path="res://MainMap/MainMap.tres" id="1_ov3xp"]
 [ext_resource type="Texture2D" uid="uid://5y3xis872gc3" path="res://Graphics/Tile_marker.png" id="3_nng07"]
 
-[node name="Region" type="Node2D" unique_id=1261766053]
+[node name="Region" type="Node2D" unique_id=1261766053 node_paths=PackedStringArray("resource_nodes")]
 y_sort_enabled = true
 script = ExtResource("1_byl7l")
+resource_nodes = NodePath("ResourceNodes")
 
 [node name="MapTiles" type="TileMapLayer" parent="." unique_id=1062474471]
 unique_name_in_owner = true
@@ -39,12 +40,12 @@ unique_name_in_owner = true
 self_modulate = Color(1, 1, 0.258824, 0.784314)
 texture = ExtResource("3_nng07")
 
-[node name="ResourceNodes" type="Node2D" parent="." unique_id=1875245058]
+[node name="Buildings" type="Node2D" parent="." unique_id=959314112]
 unique_name_in_owner = true
 z_index = 1
 y_sort_enabled = true
 
-[node name="Buildings" type="Node2D" parent="." unique_id=959314112]
+[node name="ResourceNodes" type="Node2D" parent="." unique_id=1875245058]
 unique_name_in_owner = true
 z_index = 1
 y_sort_enabled = true

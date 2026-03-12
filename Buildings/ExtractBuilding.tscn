@@ -8,13 +8,14 @@ resource_local_to_scene = true
 size = Vector2(64, 32)
 
 [node name="ExtractBuilding" type="Node2D" unique_id=826777140 node_paths=PackedStringArray("extraction_timer", "sprite", "make_transparent_area")]
+y_sort_enabled = true
 script = ExtResource("1_1sug7")
 extraction_timer = NodePath("ExtractionTimer")
 sprite = NodePath("Sprite2D")
 make_transparent_area = NodePath("MakeTransparentArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=834900961]
-position = Vector2(0, -12)
+position = Vector2(0, -16)
 texture = ExtResource("2_x2cic")
 
 [node name="MakeTransparentArea" type="Area2D" parent="." unique_id=1185259308]
@@ -30,6 +31,4 @@ shape = SubResource("RectangleShape2D_7ejj4")
 [node name="ExtractionTimer" type="Timer" parent="." unique_id=1805645198]
 one_shot = true
 
-[connection signal="area_entered" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_entered"]
-[connection signal="area_exited" from="MakeTransparentArea" to="." method="_on_make_transparent_area_area_exited"]
 [connection signal="timeout" from="ExtractionTimer" to="." method="_on_extraction_timer_timeout"]

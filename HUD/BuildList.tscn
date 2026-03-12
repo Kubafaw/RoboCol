@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://5utif8303bgj" path="res://HUD/build_list.gd" id="1_14f3p"]
 [ext_resource type="PackedScene" uid="uid://crqb6jw4vr2qj" path="res://HUD/BuildListSlot.tscn" id="2_ge6h4"]
 [ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="3_16c2x"]
-[ext_resource type="Resource" uid="uid://cl18bwli1elk7" path="res://Buildings/Resources/Lumberjack.tres" id="4_16c2x"]
+[ext_resource type="Texture2D" uid="uid://b1fc3kf6t2xdd" path="res://Graphics/HUB_icon.png" id="3_ccnda"]
+[ext_resource type="Resource" uid="uid://cl18bwli1elk7" path="res://Buildings/Resources/Quarry.tres" id="4_16c2x"]
 [ext_resource type="Resource" uid="uid://bsxov12nq1m2j" path="res://Buildings/Resources/HUB.tres" id="4_redbt"]
+[ext_resource type="Resource" uid="uid://dwap5fonlatex" path="res://Buildings/Resources/Lumberjack.tres" id="6_1mb6d"]
 
 [node name="BuildList" type="Control" unique_id=1346066741]
 modulate = Color(1, 1, 1, 0.29411766)
@@ -20,10 +22,15 @@ offset_bottom = 40.0
 
 [node name="HUB" parent="HBoxContainer" unique_id=1290825241 instance=ExtResource("2_ge6h4")]
 layout_mode = 2
-image = ExtResource("3_16c2x")
+image = ExtResource("3_ccnda")
 building_stats = ExtResource("4_redbt")
 
 [node name="LumberJack" parent="HBoxContainer" unique_id=1115829013 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("3_16c2x")
+building_stats = ExtResource("6_1mb6d")
+
+[node name="Quarry" parent="HBoxContainer" unique_id=487082042 instance=ExtResource("2_ge6h4")]
 layout_mode = 2
 image = ExtResource("3_16c2x")
 building_stats = ExtResource("4_16c2x")

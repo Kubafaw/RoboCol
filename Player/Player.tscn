@@ -153,7 +153,7 @@ z_index = 1
 y_sort_enabled = true
 position = Vector2(-1, -9)
 sprite_frames = SubResource("SpriteFrames_l2ndj")
-animation = &"Move_up_right"
+animation = &"Move_down_left"
 
 [node name="MakeTransaprentArea" type="Area2D" parent="AnimatedSprite2D" unique_id=1785877112]
 collision_mask = 0

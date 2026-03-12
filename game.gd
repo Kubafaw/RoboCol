@@ -2,12 +2,14 @@ extends Node2D
 
 class_name GameNode
 
+@export var building_pointer : Sprite2D
+@export var action_progress : TextureProgressBar
+
 var ActionProgress : TextureProgressBar
 var selected_building : BuildingStats = null
 
 func _ready() -> void:
 	MN._GameN = self
-	ActionProgress = %ActionProgress
 
 func _process(_delta: float) -> void:
 	# Get mouse global and tile position
@@ -16,21 +18,23 @@ func _process(_delta: float) -> void:
 	
 	# Set tile_pointer, action progress bar and camer global positions
 	%Pointer.global_position = MN._MainM._global_tile_position(tile_pos) + Vector2(0, 1)
-	%ActionProgress.global_position = $Player.global_position + Vector2(-16, -44)
+	action_progress.global_position = $Player.global_position + Vector2(-16, -44)
 	%Camera.global_position = %Player.global_position
 	
 	# Process building pointer
-	%Building.global_position = MN._MainM._global_tile_position(tile_pos) + Vector2(0, -12)
-	if %Building.texture != null:
-		%Building.self_modulate = Color(1.0, 1.0, 1.0, 0.7)
+	if building_pointer.texture != null:
+		%MakeTransparentArea.set_collision_layer_value(1, true)
+		building_pointer.global_position = MN._MainM._global_tile_position(tile_pos) - Vector2(0, %Building.texture.get_height()/2 - 8)
+		building_pointer.self_modulate = Color(1.0, 1.0, 1.0, 0.7)
 		if !_check_if_can_build():
-			%Building.self_modulate = Color(1.0, 0.2, 0.2, 0.7)
+			building_pointer.self_modulate = Color(1.0, 0.2, 0.2, 0.7)
+	else:
+		%MakeTransparentArea.set_collision_layer_value(1, false)
 		
-	# Proess building deselect action
-	if Input.is_action_just_pressed("Secondary_Action"):
-		%Building.texture = null
-		if selected_building.hub:
-			MN._MainM._hide_region_middle()
+	# Process building deselect action
+	if Input.is_action_just_pressed("Secondary_Action") and selected_building != null:
+		MN._MainM._hide_region_middle()
+		building_pointer.texture = null
 		selected_building = null
 
 func _check_if_can_build() -> bool:
@@ -49,7 +53,7 @@ func _check_if_can_build() -> bool:
 	var pointer_current_region : Region = MN._MainM.regions[current_region_cords]
 	
 	# Checks for hub
-	if selected_building.hub:
+	if selected_building.type == selected_building.building_type.HUB:
 		# Check if middle of region while building hub
 		if pointer_current_region._get_global_region_middle() + Vector2i(1, 0) != tile_pos:
 			return false
@@ -68,8 +72,8 @@ func _check_if_can_build() -> bool:
 			if !MN._MainM.regions.has(_current_region_cords) or !MN._MainM.regions[_current_region_cords].hub_center:
 				return false
 		# Check if proper tile type under the extraction building
-		if selected_building.extraction_building:
-			for tile_cords in PosFuncs._get_occupied_tiles(selected_building.building_size):
+		if selected_building.type == selected_building.building_type.Extract :
+			for tile_cords in PosFuncs._get_occupied_tiles(selected_building.size):
 				var _cords : Vector2i = tile_pos + tile_cords + Vector2i(-1, 0)
 				var _current_region_cords : Vector2i = MN._MainM._get_current_region(tile_pos)
 				if !MN._MainM.regions.has(_current_region_cords) or RgD.Regions[selected_building.extraction_tile_type] != MN._MainM.regions[_current_region_cords]._get_tile_type(_cords):
@@ -84,6 +88,6 @@ func _hide_target_marker():
 	%TargetMarker.hide()
 	
 func _set_building(building_stats : BuildingStats):
-	%Building.texture = building_stats.image
+	building_pointer.texture = building_stats.image
 	selected_building = building_stats
 	
