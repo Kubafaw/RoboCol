@@ -6,8 +6,9 @@ class_name MainMap
 @export var region_size_y : int
 @export var region_scene : PackedScene
 @export var resource_node_scene : PackedScene
+@export var regions_node : Node2D
+@export var map_tiles : TileMapLayer
 
-@onready var map_tiles : TileMapLayer = %MapTiles
 @onready var tile_set : TileSet = map_tiles.tile_set
 @onready var x_offset : int = int(map_tiles.tile_set.tile_size.x / 2.0)
 @onready var y_offset : int = int(map_tiles.tile_set.tile_size.y / 2.0)
@@ -90,7 +91,7 @@ func _generate_region(cords: Vector2i) -> void:
 	))
 	region.global_position += Vector2(0, 8)
 	region.cords = cords
-	%Regions.add_child(region)
+	regions_node.add_child(region)
 	region._generate_region()
 
 func _get_resources_per_region() -> int:

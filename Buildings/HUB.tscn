@@ -277,17 +277,18 @@ animations = [{
 "speed": 18.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7svkf"]
-size = Vector2(16, 24)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8k3s"]
 resource_local_to_scene = true
 size = Vector2(64, 43)
 
-[node name="Hub" type="Node2D" unique_id=1957857524 node_paths=PackedStringArray("sprite", "make_transparent_area")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7svkf"]
+size = Vector2(16, 24)
+
+[node name="Hub" type="Node2D" unique_id=1957857524 node_paths=PackedStringArray("sprite", "make_transparent_area", "make_transparent_shape")]
 script = ExtResource("1_w8k3s")
 sprite = NodePath("Sprite2D")
 make_transparent_area = NodePath("MakeTransparentArea")
+make_transparent_shape = NodePath("MakeTransparentArea/MakeTransparentShape")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=247573481]
 y_sort_enabled = true
@@ -319,15 +320,15 @@ unique_name_in_owner = true
 position = Vector2(0, -22)
 collision_layer = 0
 
-[node name="MakeTransparentShape2" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=2016125977]
-unique_name_in_owner = true
-position = Vector2(0, -37)
-shape = SubResource("RectangleShape2D_7svkf")
-
 [node name="MakeTransparentShape" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=348848331]
 unique_name_in_owner = true
 position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_w8k3s")
+
+[node name="MakeTransparentShape2" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=2016125977]
+unique_name_in_owner = true
+position = Vector2(0, -37)
+shape = SubResource("RectangleShape2D_7svkf")
 
 [node name="Left_door_timer" type="Timer" parent="." unique_id=134868873]
 unique_name_in_owner = true

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://owma1fcvwkiu"]
+
+[ext_resource type="Texture2D" uid="uid://v1t7dh3kfuxi" path="res://Graphics/Logs.png" id="1_0xi0v"]
+[ext_resource type="Script" uid="uid://dnhmvww75d5bg" path="res://Missions/resource_info.gd" id="1_at4m2"]
+[ext_resource type="FontFile" uid="uid://ehhu2otuxy03" path="res://Fonts/Early GameBoy.ttf" id="3_tw2c1"]
+
+[node name="ResourceInfo" type="HBoxContainer" unique_id=889908113 node_paths=PackedStringArray("icon", "amount_label")]
+custom_minimum_size = Vector2(300, 40)
+offset_right = 512.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+script = ExtResource("1_at4m2")
+icon = NodePath("HBoxContainer/Container2/Icon")
+amount_label = NodePath("HBoxContainer/Amount")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=668066665]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Container" type="Control" parent="HBoxContainer" unique_id=924357322]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Container2" type="Control" parent="HBoxContainer" unique_id=1204520900]
+layout_mode = 2
+
+[node name="Icon" type="Sprite2D" parent="HBoxContainer/Container2" unique_id=2042986042]
+position = Vector2(-30, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("1_0xi0v")
+
+[node name="Amount" type="Label" parent="HBoxContainer" unique_id=1821031259]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_tw2c1")
+theme_override_font_sizes/font_size = 32
+text = "x15"
+vertical_alignment = 1

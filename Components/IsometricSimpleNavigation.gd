@@ -40,6 +40,7 @@ func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 					else:
 						next_nav_point = Vector2(0, -y_diff2 - 1)
 					x_movement_prior = true
+					move_component.move_direction = next_nav_point
 					return MN._MainM._global_tile_position(next_nav_point + _current_pos)
 				break
 			next_nav_point += x_vector
@@ -57,12 +58,14 @@ func _get_next_point(_current_pos : Vector2) -> Vector2: # global position
 					else:
 						next_nav_point = Vector2(-x_diff2 - 1, 0)
 					x_movement_prior = false
+					move_component.move_direction = next_nav_point
 					return MN._MainM._global_tile_position(next_nav_point + _current_pos)
 				break
 			next_nav_point += y_vector
 			if next_nav_point.y + _current_pos.y == target.y:
 				break
 				
+	move_component.move_direction = next_nav_point
 	return MN._MainM._global_tile_position(next_nav_point + _current_pos) 
 
 func _set_target(_target : Vector2) -> void:

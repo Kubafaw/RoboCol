@@ -2,11 +2,13 @@ extends Node2D
 
 class_name Region
 
-@onready var map_tiles : TileMapLayer = %MapTiles
-
+@export var map_tiles : TileMapLayer
 @export var cords : Vector2i
 @export var initial : bool
 @export var resource_nodes : Node2D
+@export var region_middle_node : Node2D
+@export var buildings_node : Node2D
+@export var res_resp_timer : Timer
 
 var max_nodes : int = 0
 var spawned_resources : int = 0
@@ -21,10 +23,11 @@ func _generate_region() -> void:
 	for i : int in range(max_nodes):
 		_generate_resource(0)
 	
-	%RegionMiddle1.position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(1, 1)) + Vector2(0, 1)
-	%RegionMiddle2.position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(1, 0)) + Vector2(0, 1)
-	%RegionMiddle3.position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(0, 1)) + Vector2(0, 1)
-	%RegionMiddle4.position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(0, 0)) + Vector2(0, 1)
+	var middle_tiles : Array[Node] = region_middle_node.get_children()
+	middle_tiles[0].position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(1, 1)) + Vector2(0, 1)
+	middle_tiles[1].position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(1, 0)) + Vector2(0, 1)
+	middle_tiles[2].position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(0, 1)) + Vector2(0, 1)
+	middle_tiles[3].position = MN._MainM._global_tile_position(_get_region_middle() - Vector2i(0, 0)) + Vector2(0, 1)
 		
 
 func _generate_region_tiles() -> void:
@@ -57,22 +60,22 @@ func _generate_resource(_try: int) -> void:
 	var terrain_types : int = MN._MainM.terrain_types
 	var noise_value : int = floor((noise.get_noise_2d(noise_cords.x, noise_cords.y) + 1.0)/2.0*float(terrain_types))
 	var biome : String = RgD.Regions[int(noise_value)]
-	var resource_nodes : Array = RgD.biome_resource_nodes[biome]
+	var _resource_nodes : Array = RgD.biome_resource_nodes[biome]
 
-	if resource_nodes.size() > 0:
+	if _resource_nodes.size() > 0:
 		var resource_node : ResourceNode = MN._MainM.resource_node_scene.instantiate()
-		var res_data : ResourceNodeData = ResD.Nodes[resource_nodes.pick_random()]
+		var res_data : ResourceNodeData = ResD.Nodes[_resource_nodes.pick_random()]
 		resource_node.node_data = res_data
 		resource_node.position = MN._MainM._global_tile_position(Vector2(random_x, random_y))
 		resource_node.region = self
-		%ResourceNodes.add_child(resource_node)
+		resource_nodes.add_child(resource_node)
 		spawned_resources += 1
 
 func _on_resource_respawn_timer_timeout() -> void:
 	if !visible and !hub_center:
 		_generate_resource(0)
 	if spawned_resources < max_nodes:
-		%ResourceRespawnTimer.start()
+		res_resp_timer.start()
 
 func _get_region_middle() -> Vector2i:
 	var middle : Vector2i = Vector2i(1, 1) * int(MN._MainM.region_size_x/2.0+1)
@@ -83,16 +86,16 @@ func _get_global_region_middle():
 		
 # Function for regenerating resources
 func _resource_gathered() -> void:
-	if %ResourceRespawnTimer.is_stopped():
-		%ResourceRespawnTimer.start()
+	if res_resp_timer.is_stopped():
+		res_resp_timer.start()
 		
 # Toggle on the visibility of region center marks
 func _toggle_on_middle() -> void:
-	%RegionMiddle.show()
+	region_middle_node.show()
 	
 # Toggle of the visibility of region center marks
 func _toggle_of_middle() -> void:
-	%RegionMiddle.hide()
+	region_middle_node.hide()
 	
 func get_resource_nodes(resource: ResD.possible_resources) -> Array[ResourceNode]:
 	var nodes : Array[ResourceNode]
@@ -104,12 +107,12 @@ func get_resource_nodes(resource: ResD.possible_resources) -> Array[ResourceNode
 # Get tile type
 func _get_tile_type(_tile_cords : Vector2i) -> String:
 	var local_cords : Vector2i = _tile_cords - Vector2i(cords.x * MN._MainM.region_size_x, cords.y * MN._MainM.region_size_y) 
-	var tile_data : TileData = %MapTiles.get_cell_tile_data(local_cords)
+	var tile_data : TileData = map_tiles.get_cell_tile_data(local_cords)
 	if tile_data != null:
 		return RgD.Regions[tile_data.terrain]
 	return ""
 
 # Function to add building
 func _add_building(_tile: Vector2i, _building : Building) -> void:
-	%Buildings.add_child(_building)
+	buildings_node.add_child(_building)
 	_building.global_position = MN._MainM._global_tile_position(_tile)

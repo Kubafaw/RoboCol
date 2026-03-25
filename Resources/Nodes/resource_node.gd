@@ -45,8 +45,8 @@ func _action(object: Node2D) -> bool:
 func _set_sprite(texture: Texture2D):
 	sprite.texture = texture
 	sprite.offset.y = int(-sprite.texture.get_height() / 2.0) + 17.0
-	%MakeTransparentShape.shape.size = Vector2(%Sprite2D.texture.get_width(), %Sprite2D.texture.get_height() - 11.0)
-	%MakeTransparentArea.position.y = -%MakeTransparentShape.shape.size.y/2 + 4.0
+	make_transparent_shape.shape.size = Vector2(sprite.texture.get_width(), sprite.texture.get_height() - 11.0)
+	make_transparent_area.position.y = -make_transparent_shape.shape.size.y/2 + 4.0
 	
 func _get_size() -> Vector2i:
 	return node_data.size
@@ -54,5 +54,5 @@ func _get_size() -> Vector2i:
 func update_shader(_color: Color) -> void:
 	pass
 
-func _remove() -> void:
+func _remove(_name : StringName) -> void:
 	queue_free()

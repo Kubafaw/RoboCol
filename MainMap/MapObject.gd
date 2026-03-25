@@ -5,6 +5,7 @@ class_name MapObject
 
 @export var sprite : Sprite2D
 @export var make_transparent_area : Area2D
+@export var make_transparent_shape : CollisionShape2D
 
 var transparent_areas_overlapping : Array[Area2D] = []
 var tile_position : Vector2i

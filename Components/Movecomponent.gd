@@ -9,6 +9,7 @@ class_name MoveComponent
 var actual_position : Vector2
 var next_position : Vector2
 var moved : bool = false
+var move_direction : Vector2i
 
 signal target_reached
 	
@@ -39,8 +40,11 @@ func _physics_process(delta: float) -> void:
 		emit_signal("target_reached")
 	elif moved and Actor.global_position == next_position:
 		_get_new_point()
+	
+	if !moved:
+		move_direction = Vector2i(0, 0)
 		
-	Actor._change_animation(move_range)
+	Actor._change_animation(move_direction)
 	
 func _same_position() -> void:
 	emit_signal("target_reached")

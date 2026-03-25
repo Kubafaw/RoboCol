@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://btomiiq0ypj6h"]
+
+[ext_resource type="Script" uid="uid://bunayhpnc5myp" path="res://Missions/mission.gd" id="1_7xtgd"]
+[ext_resource type="Texture2D" uid="uid://ckc8uvaw4y5ib" path="res://icon.svg" id="1_wuegg"]
+[ext_resource type="PackedScene" uid="uid://owma1fcvwkiu" path="res://Missions/ResourceInfo.tscn" id="2_ivcx0"]
+[ext_resource type="Texture2D" uid="uid://xoy0cvfki31s" path="res://Graphics/UI_frame_empty.png" id="2_mekij"]
+[ext_resource type="FontFile" uid="uid://ehhu2otuxy03" path="res://Fonts/Early GameBoy.ttf" id="3_ivcx0"]
+
+[node name="Objective" type="HBoxContainer" unique_id=1013911532 node_paths=PackedStringArray("mission_icon", "time_label", "gains_list", "quota_list")]
+custom_minimum_size = Vector2(255, 450)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 528.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_7xtgd")
+mission_icon = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer/Control/Image")
+time_label = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/TimeLabel")
+gains_list = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/GainsList")
+quota_list = NodePath("MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/QuotaList")
+resource_info_scene = ExtResource("2_ivcx0")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1830709329]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 250
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer" unique_id=535954875]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_mekij")
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/NinePatchRect" unique_id=2010917020]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer" unique_id=1756321996]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=2022779427]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=186962854]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1080836141]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Image" type="Sprite2D" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer/Control" unique_id=1900224282]
+position = Vector2(-1.333313, 64)
+texture = ExtResource("1_wuegg")
+
+[node name="TimeLabel" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=945326735]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ivcx0")
+theme_override_font_sizes/font_size = 40
+text = "5:00"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Gains" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=250485859]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ivcx0")
+theme_override_font_sizes/font_size = 40
+text = "Gains"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="GainsList" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=1349424299]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Quota" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=2011844053]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_ivcx0")
+theme_override_font_sizes/font_size = 40
+text = "Quota"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuotaList" type="VBoxContainer" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=1252040650]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 1

@@ -5,13 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://dftw1yjkfwmol" path="res://MainMap/Region.tscn" id="2_mckhm"]
 [ext_resource type="PackedScene" uid="uid://477lj4a4f20i" path="res://Resources/Nodes/ResourceNode.tscn" id="3_dhqxw"]
 
-[node name="MainMap" type="Node2D" unique_id=44621101]
+[node name="MainMap" type="Node2D" unique_id=44621101 node_paths=PackedStringArray("regions_node", "map_tiles")]
 y_sort_enabled = true
 script = ExtResource("1_h5b8r")
 region_size_x = 20
 region_size_y = 20
 region_scene = ExtResource("2_mckhm")
 resource_node_scene = ExtResource("3_dhqxw")
+regions_node = NodePath("Regions")
+map_tiles = NodePath("MapTiles")
 
 [node name="MapTiles" type="TileMapLayer" parent="." unique_id=610030585]
 unique_name_in_owner = true

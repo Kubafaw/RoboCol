@@ -61,24 +61,22 @@ _data = {
 &"Vanish": SubResource("Animation_5y4ao")
 }
 
-[node name="ResourceNode" type="Node2D" unique_id=207548890 node_paths=PackedStringArray("animations", "sprite", "make_transparent_area")]
+[node name="ResourceNode" type="Node2D" unique_id=207548890 node_paths=PackedStringArray("animations", "sprite", "make_transparent_area", "make_transparent_shape")]
 script = ExtResource("1_4yr5q")
 animations = NodePath("AnimationPlayer")
 sprite = NodePath("Sprite2D")
 make_transparent_area = NodePath("MakeTransparentArea")
+make_transparent_shape = NodePath("MakeTransparentArea/MakeTransparentShape")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=111352581]
-unique_name_in_owner = true
 texture = ExtResource("2_et61w")
 offset = Vector2(0, -16)
 
 [node name="MakeTransparentArea" type="Area2D" parent="." unique_id=2074253728]
-unique_name_in_owner = true
 position = Vector2(0, -22)
 collision_layer = 0
 
 [node name="MakeTransparentShape" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=1920637648]
-unique_name_in_owner = true
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_et61w")
 

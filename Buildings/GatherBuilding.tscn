@@ -7,12 +7,13 @@
 resource_local_to_scene = true
 size = Vector2(64, 32)
 
-[node name="GatherBuilding" type="Node2D" unique_id=414803019 node_paths=PackedStringArray("bots_container", "sprite", "make_transparent_area")]
+[node name="GatherBuilding" type="Node2D" unique_id=414803019 node_paths=PackedStringArray("bots_container", "sprite", "make_transparent_area", "make_transparent_shape")]
 y_sort_enabled = true
 script = ExtResource("1_0c7ut")
 bots_container = NodePath("Bots")
 sprite = NodePath("Sprite2D")
 make_transparent_area = NodePath("MakeTransparentArea")
+make_transparent_shape = NodePath("MakeTransparentArea/MakeTransparentShape")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=922931139]
 position = Vector2(0, -15)

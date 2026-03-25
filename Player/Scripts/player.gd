@@ -2,18 +2,29 @@ extends Node2D
 
 class_name Player
 
+@export var animated_sprite : AnimatedSprite2D
+@export var move_component : MoveComponent
+@export var navigation_component : IsometricNavigation
+@export var gather_timer : Timer
+
 var inventory : Dictionary[ResD.possible_resources, int] = {}
 
 var interaction_node : MapObject
 var gather_action_time : float
+var animations : Dictionary[Vector2i, String] = {
+	Vector2i(1, 0) : "Move_down_right",
+	Vector2i(0, 1) : "Move_down_left",
+	Vector2i(-1, 0) : "Move_up_left",
+	Vector2i(0, -1) : "Move_up_right", 
+}
 
 func _ready() -> void:
 	MN._MPlayer = self
 	var new_tile : Vector2i = MN._MainM._get_current_tile_position(global_position)
 	var new_pos : Vector2 = MN._MainM._global_tile_position(new_tile)
 	global_position = new_pos
-	$Components/MoveComponent.next_position = new_pos
-	$Components/MoveComponent.actual_position = new_pos
+	move_component.next_position = new_pos
+	move_component.actual_position = new_pos
 	MN._MainM._update_regions(MN._MainM._get_current_region(new_tile))
 
 func _process(_delta: float) -> void:
@@ -39,7 +50,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 		var tile_occupancy : MapObject = MN._MainM._get_tile_occupancy(new_tile)
 		# Resetting action after input
 		interaction_node = null
-		%GatherTimer.stop()
+		gather_timer.stop()
 		MN._GameN.action_progress.hide()
 		# Logic for clicking on MapObject
 		if tile_occupancy != null:
@@ -65,36 +76,31 @@ func _unhandled_input(_event: InputEvent) -> void:
 		# Getting new position for pathfinding
 		var new_pos : Vector2 = MN._MainM._global_tile_position(new_tile)
 		MN._GameN._set_target_marker(new_pos)
-		$Components/IsometricNavigation._set_target(new_tile)
-		$Components/MoveComponent._get_new_point()
+		navigation_component._set_target(new_tile)
+		move_component._get_new_point()
 
-# To make into animation player
-func _change_animation(direction: Vector2) -> void:
+# Logic for changing animation
+func _change_animation(direction: Vector2i) -> void:
+	direction = direction.sign()
+	
 	if direction.length() == 0:
-		$AnimatedSprite2D.pause()
+		animated_sprite.pause()
 		return
-	if direction.x > 0.3 and direction.y > 0.3:
-		$AnimatedSprite2D.play("Move_down_right")
-	if direction.x < -0.3 and direction.y > 0.3:
-		$AnimatedSprite2D.play("Move_down_left") 
-	if direction.x > 0.3 and direction.y < -0.3:
-		$AnimatedSprite2D.play("Move_up_right")
-	if direction.x < -0.3 and direction.y < -0.3:
-		$AnimatedSprite2D.play("Move_up_left")
+		
+	animated_sprite.play(animations[direction])
 
 # Logic for interaction after reaching it
 func _on_move_component_target_reached() -> void:
 	MN._GameN._hide_target_marker()
 	if interaction_node != null:
 		if interaction_node is ResourceNode:
-			%GatherTimer.start(interaction_node.node_data.GatherTime)
+			gather_timer.start(interaction_node.node_data.GatherTime)
 			gather_action_time = interaction_node.node_data.GatherTime
 			MN._GameN.action_progress.show()
 		if interaction_node is HUB:
 			interaction_node._interaction()
 		
-	# var _current_tile_pos : Vector2i = MN._MainM._get_current_tile_position(global_position)
-	$Components/IsometricNavigation._set_target(Vector2(INF, INF))
+	navigation_component._set_target(Vector2(INF, INF))
 
 # Logic for adding resource to player inventory
 func _add_resource(_resource : ResD.possible_resources, _amount : int) -> void:
@@ -116,7 +122,7 @@ func _remove_resource(_resource : ResD.possible_resources, _amount : int) -> voi
 # Logic for gathering resource node
 func _on_gather_timer_timeout() -> void:
 	if interaction_node._action(self):
-		%GatherTimer.start(gather_action_time)
+		gather_timer.start(gather_action_time)
 		MN._GameN.action_progress.show()
 	else:
 		MN._GameN.action_progress.hide()

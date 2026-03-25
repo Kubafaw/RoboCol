@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://b1hfj30ba0tsb"]
+
+[ext_resource type="Script" uid="uid://dvo8gt8g5t2om" path="res://Missions/MissionsData/MissionData.gd" id="1_7xl8l"]
+[ext_resource type="Texture2D" uid="uid://ckc8uvaw4y5ib" path="res://icon.svg" id="1_ghukv"]
+
+[resource]
+script = ExtResource("1_7xl8l")
+icon = ExtResource("1_ghukv")
+time = 300.0
+Gains = Dictionary[int, int]({
+3: 1,
+5: 1
+})
+Quota = Dictionary[int, int]({
+2: 5
+})
+metadata/_custom_type_script = "uid://dvo8gt8g5t2om"

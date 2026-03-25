@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MissionsSet" format=3 uid="uid://bi0xxvstmv5mi"]
+
+[ext_resource type="Script" uid="uid://c2pn4650s0ngp" path="res://Missions/MissionsData/MissionsSet.gd" id="1_iefn7"]
+[ext_resource type="Script" uid="uid://dvo8gt8g5t2om" path="res://Missions/MissionsData/MissionData.gd" id="1_k84mw"]
+[ext_resource type="Resource" uid="uid://tn8grjxdax8w" path="res://Missions/MissionsData/MiningI.tres" id="2_bxqmr"]
+[ext_resource type="Resource" uid="uid://b1hfj30ba0tsb" path="res://Missions/MissionsData/PotteryI.tres" id="3_cbvfh"]
+[ext_resource type="Resource" uid="uid://c5xwpgfld8sqd" path="res://Missions/MissionsData/CarpentryI.tres" id="4_bxqmr"]
+
+[resource]
+script = ExtResource("1_iefn7")
+EntryMissions = Array[ExtResource("1_k84mw")]([ExtResource("2_bxqmr"), ExtResource("3_cbvfh"), ExtResource("4_bxqmr")])
+metadata/_custom_type_script = "uid://c2pn4650s0ngp"

@@ -143,10 +143,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tok1r"]
 size = Vector2(12, 11)
 
-[node name="Player" type="Node2D" unique_id=377380329]
+[node name="Player" type="Node2D" unique_id=377380329 node_paths=PackedStringArray("animated_sprite", "move_component", "navigation_component", "gather_timer")]
 z_index = 2
 y_sort_enabled = true
 script = ExtResource("1_ddoul")
+animated_sprite = NodePath("AnimatedSprite2D")
+move_component = NodePath("Components/MoveComponent")
+navigation_component = NodePath("Components/IsometricNavigation")
+gather_timer = NodePath("GatherTimer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=476031938]
 z_index = 1

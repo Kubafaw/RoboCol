@@ -8,16 +8,35 @@ class_name GatherBot
 @export var wait_timer : Timer
 @export var navigation : IsometricNavigation
 @export var move_component : MoveComponent
+@export var target_marker : Sprite2D
 
 var interaction_node : ResourceNode
 var sprite_frames : SpriteFrames
 var hub : HUB
 var gather_building : GatherBuilding
-var stored_amount : int = 0
+var stored_amount : int = 0:
+	set(value):
+		stored_amount = value
+		animated_sprite.material.set_shader_parameter("fullness", float(stored_amount) / float(max_stored_amount))
+
+		
 var max_stored_amount : int = 6
 var going_back_to_hub : bool = false
 var hub_side : int = 0
 var hub_signal : Signal
+var animations : Dictionary[Vector2i, String] = {
+	Vector2i(1, 0) : "Move_down_right",
+	Vector2i(0, 1) : "Move_down_left",
+	Vector2i(-1, 0) : "Move_up_left",
+	Vector2i(0, -1) : "Move_up_right", 
+}
+
+var tool_positioning :  Dictionary[Vector2i, Array] = {
+	Vector2i(1, 0) : [Vector2(13, -10), deg_to_rad(15)],
+	Vector2i(0, 1) : [Vector2(-9, -10), deg_to_rad(-15)],
+	Vector2i(-1, 0) : [Vector2(-11, -10), deg_to_rad(30)],
+	Vector2i(0, -1) : [Vector2(14, -10), deg_to_rad(-30)],
+}
 
 func _ready() -> void:
 	animated_sprite.sprite_frames = sprite_frames
@@ -57,7 +76,7 @@ func _find_node_to_gather() -> void:
 		interaction_node.bots_gathering += 1
 		if MN._MainM._global_tile_position(new_pos) == global_position:
 			_on_move_component_target_reached()
-		%TargetMarker.global_position = MN._MainM._global_tile_position(new_pos)
+		target_marker.global_position = MN._MainM._global_tile_position(new_pos)
 	else:
 		wait_timer.start()
 	
@@ -77,27 +96,17 @@ func _on_move_component_target_reached() -> void:
 func _add_resource(_resoure : ResD.possible_resources, _amount : int) -> void:
 	stored_amount += 1
 	
-# To make into animation player
-func _change_animation(direction: Vector2) -> void:
+# Logic for changing animation
+func _change_animation(direction: Vector2i) -> void:
+	direction = direction.sign()
+	
 	if direction.length() == 0:
 		animated_sprite.pause()
 		return
-	if direction.x > 0.3 and direction.y > 0.3:
-		animated_sprite.play("Move_down_right")
-		tool.position = Vector2(13, -10)
-		tool.skew = deg_to_rad(15)
-	if direction.x < -0.3 and direction.y > 0.3:
-		animated_sprite.play("Move_down_left") 
-		tool.position = Vector2(-9, -10)
-		tool.skew = deg_to_rad(-15)
-	if direction.x > 0.3 and direction.y < -0.3:
-		animated_sprite.play("Move_up_right")
-		tool.position = Vector2(14, -10)
-		tool.skew = deg_to_rad(-30)
-	if direction.x < -0.3 and direction.y < -0.3:
-		animated_sprite.play("Move_up_left")
-		tool.position = Vector2(-11, -10)
-		tool.skew = deg_to_rad(30)
+		
+	animated_sprite.play(animations[direction])
+	tool.position = tool_positioning[direction][0]
+	tool.skew = tool_positioning[direction][1]
 
 func _on_gather_timer_timeout() -> void:
 	if interaction_node != null and interaction_node._action(self):
@@ -118,7 +127,7 @@ func _go_back_to_hub() -> void:
 		index += 1
 	navigation._set_target(new_pos)
 	move_component._get_new_point()
-	%TargetMarker.global_position = MN._MainM._global_tile_position(new_pos)
+	target_marker.global_position = MN._MainM._global_tile_position(new_pos)
 	
 func _on_wait_timeout() -> void:
 	if not going_back_to_hub:
