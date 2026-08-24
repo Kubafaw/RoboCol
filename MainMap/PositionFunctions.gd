@@ -11,6 +11,7 @@ func _get_neighbouring_tiles(_obj_size : Vector2i) -> Array[Vector2i]:
 		neighbouring_tiles.append(Vector2i(-_obj_size.x, -_y))
 	return neighbouring_tiles
 
+
 # get tiles occupied by the object
 func _get_occupied_tiles(_obj_size : Vector2i) -> Array[Vector2i]:
 	var occupied_tiles : Array[Vector2i] = []
@@ -18,6 +19,7 @@ func _get_occupied_tiles(_obj_size : Vector2i) -> Array[Vector2i]:
 		for _y in range(_obj_size.y):
 			occupied_tiles.append(Vector2i(-_x, -_y))
 	return occupied_tiles
+	
 	
 # get the whole tile occupied by the object with all surrounding tiles
 func _get_surrounding_tiles(_obj_size : Vector2i) -> Array[Vector2i]:
@@ -27,12 +29,14 @@ func _get_surrounding_tiles(_obj_size : Vector2i) -> Array[Vector2i]:
 			surrounding_tiles.append(Vector2i(-_x, -_y))
 	return surrounding_tiles
 	
+	
 # Get closest neighbouring tile for interacting with map object
-func _get_closest_tile(object_position: Vector2i, positions: Array[Vector2i]) -> Vector2i:
-	var current_min : float = positions[0].distance_to(object_position)
+func _get_closest_tile(object_position: Vector3i, positions: Array[Vector2i]) -> Vector2i:
+	var xy_object_position = Vector2i(object_position.x, object_position.z)
+	var current_min : float = positions[0].distance_to(xy_object_position)
 	var current_closest_position : Vector2i = positions[0]
 	for _position : Vector2i in positions:
-		if current_min > _position.distance_to(object_position):
-			current_min = _position.distance_to(object_position)
+		if current_min > _position.distance_to(xy_object_position):
+			current_min = _position.distance_to(xy_object_position)
 			current_closest_position = _position
 	return current_closest_position

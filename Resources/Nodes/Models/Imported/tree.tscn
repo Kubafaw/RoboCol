@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cmwagseprml3e"]
+
+[ext_resource type="PackedScene" uid="uid://cnlgfhse3qu17" path="res://Resources/Nodes/Models/Tree.glb" id="1_brfkd"]
+[ext_resource type="Material" uid="uid://kmfxhmw6pcqu" path="res://Shaders/simple_material.tres" id="2_gsi6a"]
+
+[node name="Tree" unique_id=1527201059 instance=ExtResource("1_brfkd")]
+
+[node name="PineTree" parent="." index="0" unique_id=603112290]
+material_override = ExtResource("2_gsi6a")
+
+[node name="Cords" type="Label3D" parent="." index="1" unique_id=2009119590]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3941746, 0)
+text = "(0,0)"
+font_size = 64

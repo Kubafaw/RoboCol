@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cqacmkjc855lg"]
 
 [ext_resource type="PackedScene" uid="uid://btomiiq0ypj6h" path="res://Missions/Mission.tscn" id="1_1as15"]
-[ext_resource type="Script" uid="uid://bdwikh6xekiad" path="res://Missions/mission_selection.gd" id="1_yg5k8"]
+[ext_resource type="Script" uid="uid://b3phxjlgtbhs7" path="res://Missions/mission_selection.gd" id="1_yg5k8"]
 [ext_resource type="Resource" uid="uid://bi0xxvstmv5mi" path="res://Missions/MissionsData/RegularMap.tres" id="2_bbdrn"]
 
-[node name="ObjectiveSelection" type="Control" unique_id=422021393 node_paths=PackedStringArray("MissionsSelect")]
+[node name="ObjectiveSelection" type="Control" unique_id=422021393 node_paths=PackedStringArray("missions_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -13,8 +13,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yg5k8")
-Missions = ExtResource("2_bbdrn")
-MissionsSelect = NodePath("MarginContainer/Missions")
+missions = ExtResource("2_bbdrn")
+missions_container = NodePath("MarginContainer/Missions")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=811282319]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1159746133]
 layout_mode = 1
@@ -37,6 +46,12 @@ layout_mode = 2
 
 [node name="Objective2" parent="MarginContainer/Missions" unique_id=306275802 instance=ExtResource("1_1as15")]
 layout_mode = 2
+index = 1
 
 [node name="Objective3" parent="MarginContainer/Missions" unique_id=1688924525 instance=ExtResource("1_1as15")]
 layout_mode = 2
+index = 2
+
+[connection signal="clicked" from="MarginContainer/Missions/Objective" to="." method="_on_objective_clicked"]
+[connection signal="clicked" from="MarginContainer/Missions/Objective2" to="." method="_on_objective_clicked"]
+[connection signal="clicked" from="MarginContainer/Missions/Objective3" to="." method="_on_objective_clicked"]

@@ -1,22 +1,24 @@
 [gd_scene format=3 uid="uid://crqb6jw4vr2qj"]
 
-[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="1_ifjwn"]
-[ext_resource type="Script" uid="uid://dtik2wucwede5" path="res://HUD/build_list_slot.gd" id="1_jdgqd"]
+[ext_resource type="Script" uid="uid://6n6d4hcbsvw" path="res://HUD/build_list_slot.gd" id="1_jdgqd"]
+[ext_resource type="Texture2D" uid="uid://cnwrsp16256w2" path="res://HUD/Graphics/HUB_icon.png" id="2_jdgqd"]
 
-[node name="Control" type="Control" unique_id=1290825241]
-custom_minimum_size = Vector2(128, 140)
+[node name="Control" type="Control" unique_id=1290825241 node_paths=PackedStringArray("graphic")]
+custom_minimum_size = Vector2(12, 12)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 128.0
-offset_bottom = 140.0
+offset_right = 12.0
+offset_bottom = 12.0
 mouse_filter = 1
 script = ExtResource("1_jdgqd")
+graphic = NodePath("Image")
 
 [node name="Image" type="Sprite2D" parent="." unique_id=1249667247]
 unique_name_in_owner = true
-position = Vector2(64, 62)
-scale = Vector2(2, 2)
-texture = ExtResource("1_ifjwn")
+texture_filter = 1
+position = Vector2(6, 6)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jdgqd")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

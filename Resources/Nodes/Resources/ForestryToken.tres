@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://d3mo2xumywu8x"]
+
+[ext_resource type="Texture2D" uid="uid://bdr3j6uirx03t" path="res://HUD/Graphics/ForestryToken.png" id="1_0t5a4"]
+[ext_resource type="Script" uid="uid://d4mfp6kx23s55" path="res://Resources/Nodes/Resources/ResourceData.gd" id="2_5ri77"]
+
+[resource]
+script = ExtResource("2_5ri77")
+name = "ForestryToken"
+category = 1
+graphic = ExtResource("1_0t5a4")
+metadata/_custom_type_script = "uid://d4mfp6kx23s55"

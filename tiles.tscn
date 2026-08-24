@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b8hfv4kufam1"]
+
+[ext_resource type="PackedScene" uid="uid://kg4ji3b35i5l" path="res://MainMap/Models/forest_tile_0.glb" id="1_7ivye"]
+[ext_resource type="PackedScene" uid="uid://dp4iadjgof7ys" path="res://MainMap/Models/forest_tile_1.glb" id="2_vra4g"]
+[ext_resource type="PackedScene" uid="uid://be6wetvre42n7" path="res://MainMap/Models/mountain_tile_0.glb" id="3_xlp04"]
+[ext_resource type="PackedScene" uid="uid://cbt26k2avxn36" path="res://MainMap/Models/mountain_tile_1.glb" id="4_341ea"]
+
+[node name="Tiles" type="Node3D" unique_id=1601150967]
+
+[node name="forest_tile_0" parent="." unique_id=404576012 instance=ExtResource("1_7ivye")]
+
+[node name="forest_tile_1" parent="." unique_id=1536694757 instance=ExtResource("2_vra4g")]
+
+[node name="mountain_tile_0" parent="." unique_id=788899689 instance=ExtResource("3_xlp04")]
+
+[node name="mountain_tile_1" parent="." unique_id=266338153 instance=ExtResource("4_341ea")]

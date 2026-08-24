@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ca1extbs0d0pf"]
+
+[ext_resource type="Script" uid="uid://bg88x4w7m4qi5" path="res://Buildings/silo.gd" id="1_xy8ja"]
+[ext_resource type="PackedScene" uid="uid://blqchyc3uc06t" path="res://Buildings/Models/rocket.glb" id="2_1qrj7"]
+
+[node name="Silo" type="Node3D" unique_id=1336309528]
+script = ExtResource("1_xy8ja")
+rocket_graphic = ExtResource("2_1qrj7")
+rocket_acceleration = 0.01
+rocket_capacity = 5

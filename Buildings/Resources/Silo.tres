@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BuildingStats" format=3 uid="uid://mljv4f4qhih"]
+
+[ext_resource type="PackedScene" uid="uid://ca1extbs0d0pf" path="res://Buildings/Silo.tscn" id="1_lbckn"]
+[ext_resource type="Script" uid="uid://b4a3c83fgwmmu" path="res://Buildings/Resources/BuildingData.gd" id="1_x5exg"]
+[ext_resource type="PackedScene" uid="uid://p6rkag0h3bgk" path="res://Buildings/Models/Silo.glb" id="2_wknjo"]
+
+[resource]
+script = ExtResource("1_x5exg")
+size = Vector2i(3, 3)
+building = ExtResource("1_lbckn")
+graphic = ExtResource("2_wknjo")
+type = 1
+metadata/_custom_type_script = "uid://b4a3c83fgwmmu"

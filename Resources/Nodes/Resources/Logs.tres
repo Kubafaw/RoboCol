@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://c3r6qk1m5taa5"]
+
+[ext_resource type="Script" uid="uid://d4mfp6kx23s55" path="res://Resources/Nodes/Resources/ResourceData.gd" id="1_i1tme"]
+[ext_resource type="Texture2D" uid="uid://bk4jlqx1phb2d" path="res://HUD/Graphics/Logs.png" id="1_svany"]
+
+[resource]
+script = ExtResource("1_i1tme")
+name = "Logs"
+category = 1
+graphic = ExtResource("1_svany")
+metadata/_custom_type_script = "uid://d4mfp6kx23s55"

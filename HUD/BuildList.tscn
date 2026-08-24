@@ -1,39 +1,270 @@
 [gd_scene format=3 uid="uid://ds1u1wddxn1up"]
 
-[ext_resource type="Script" uid="uid://5utif8303bgj" path="res://HUD/build_list.gd" id="1_14f3p"]
+[ext_resource type="Script" uid="uid://6hok0j123bja" path="res://HUD/build_list.gd" id="1_14f3p"]
+[ext_resource type="Texture2D" uid="uid://da5cnl682p532" path="res://HUD/Graphics/UI_frame.png" id="2_dgvd5"]
 [ext_resource type="PackedScene" uid="uid://crqb6jw4vr2qj" path="res://HUD/BuildListSlot.tscn" id="2_ge6h4"]
-[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="3_16c2x"]
-[ext_resource type="Texture2D" uid="uid://b1fc3kf6t2xdd" path="res://Graphics/HUB_icon.png" id="3_ccnda"]
-[ext_resource type="Resource" uid="uid://cl18bwli1elk7" path="res://Buildings/Resources/Quarry.tres" id="4_16c2x"]
-[ext_resource type="Resource" uid="uid://bsxov12nq1m2j" path="res://Buildings/Resources/HUB.tres" id="4_redbt"]
-[ext_resource type="Resource" uid="uid://dwap5fonlatex" path="res://Buildings/Resources/Lumberjack.tres" id="6_1mb6d"]
+[ext_resource type="Texture2D" uid="uid://cnwrsp16256w2" path="res://HUD/Graphics/HUB_icon.png" id="3_j3fdf"]
+[ext_resource type="Resource" uid="uid://bsxov12nq1m2j" path="res://Buildings/Resources/HUB.tres" id="4_dgvd5"]
+[ext_resource type="Texture2D" uid="uid://ci6yrcq4fbeee" path="res://HUD/Graphics/Lumberjack_icon.png" id="5_almxs"]
+[ext_resource type="Resource" uid="uid://dwap5fonlatex" path="res://Buildings/Resources/Lumberjack.tres" id="6_vlhrl"]
+[ext_resource type="Texture2D" uid="uid://djxr4iei1ns8f" path="res://HUD/Graphics/Stonecutter_icon.png" id="7_blil3"]
+[ext_resource type="Resource" uid="uid://mljv4f4qhih" path="res://Buildings/Resources/Silo.tres" id="7_vlhrl"]
+[ext_resource type="Resource" uid="uid://cl18bwli1elk7" path="res://Buildings/Resources/Quarry.tres" id="8_456wc"]
+[ext_resource type="Texture2D" uid="uid://cnat4hhkveqgr" path="res://HUD/Graphics/Token.png" id="9_mfb1b"]
+[ext_resource type="Texture2D" uid="uid://b00gwbx0oi4kb" path="res://HUD/Graphics/Silo_icon.png" id="10_almxs"]
+[ext_resource type="Texture2D" uid="uid://e56nxw0lxysq" path="res://HUD/Graphics/Quarry_icon.png" id="10_blil3"]
+[ext_resource type="Texture2D" uid="uid://bq74mjsi8bwlk" path="res://HUD/Graphics/Clay_Pit_icon.png" id="12_456wc"]
+[ext_resource type="Resource" uid="uid://bf7irlxqji46w" path="res://Buildings/Resources/ClayPit.tres" id="13_456wc"]
+[ext_resource type="Texture2D" uid="uid://bdr3j6uirx03t" path="res://HUD/Graphics/ForestryToken.png" id="14_fs0ef"]
+[ext_resource type="Texture2D" uid="uid://c400exxx1xbkv" path="res://HUD/Graphics/Sawmill_icon.png" id="14_oxbmh"]
+[ext_resource type="Texture2D" uid="uid://c1oilt44ddme8" path="res://HUD/Graphics/Clay_Oven_icon.png" id="15_dq2r0"]
+[ext_resource type="FontFile" uid="uid://7jnl4uego550" path="res://Fonts/Early GameBoy.ttf" id="17_dq2r0"]
+[ext_resource type="Texture2D" uid="uid://nat24ngroiy3" path="res://HUD/Graphics/MiningToken.png" id="18_shi3s"]
+[ext_resource type="Texture2D" uid="uid://bffnhvffvd2mk" path="res://HUD/Graphics/PotteryToken.png" id="21_edp8q"]
 
-[node name="BuildList" type="Control" unique_id=1346066741]
-modulate = Color(1, 1, 1, 0.29411766)
-custom_minimum_size = Vector2(600, 140)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(414, 283)
+
+[node name="BuildList" type="Control" unique_id=1346066741 node_paths=PackedStringArray("category_list", "buildings_lists", "token_amount_labels", "hover_detection_area")]
+top_level = true
+texture_filter = 1
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 450.0
+offset_bottom = 196.0
 script = ExtResource("1_14f3p")
+category_list = NodePath("CategoryList")
+buildings_lists = [NodePath("All"), NodePath("Carpentry"), NodePath("Masonary"), NodePath("Pottery")]
+token_amount_labels = [NodePath("All/HBoxContainer/Icon/Token"), NodePath("Carpentry/HBoxContainer/Icon/Forestry"), NodePath("Masonary/HBoxContainer/Icon/Masonary"), NodePath("Pottery/HBoxContainer/Icon/Pottery")]
+hover_detection_area = NodePath("HoverDetection/CollisionShape2D")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=914699911]
+[node name="HoverDetection" type="Area2D" parent="." unique_id=240294593]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoverDetection" unique_id=815564669]
+position = Vector2(0, 68.5)
+shape = SubResource("RectangleShape2D_xrivr")
+disabled = true
+
+[node name="CategoryList" type="OptionButton" parent="." unique_id=512922870]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -138.0
+offset_top = -45.0
+offset_right = 138.0
+offset_bottom = -2.0
+theme_override_fonts/font = ExtResource("17_dq2r0")
 
-[node name="HUB" parent="HBoxContainer" unique_id=1290825241 instance=ExtResource("2_ge6h4")]
+[node name="All" type="NinePatchRect" parent="." unique_id=202277118]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = -191.0
+offset_right = -127.16666
+offset_bottom = 34.833336
+scale = Vector2(6, 6)
+texture = ExtResource("2_dgvd5")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="All" unique_id=914699911]
+layout_mode = 0
+offset_left = 9.833334
+offset_top = 9.5
+offset_right = 59.833336
+offset_bottom = 23.5
+
+[node name="HUB" parent="All/HBoxContainer" unique_id=1290825241 instance=ExtResource("2_ge6h4")]
 layout_mode = 2
-image = ExtResource("3_ccnda")
-building_stats = ExtResource("4_redbt")
+image = ExtResource("3_j3fdf")
+building_stats = ExtResource("4_dgvd5")
 
-[node name="LumberJack" parent="HBoxContainer" unique_id=1115829013 instance=ExtResource("2_ge6h4")]
+[node name="Silo" parent="All/HBoxContainer" unique_id=86810164 instance=ExtResource("2_ge6h4")]
 layout_mode = 2
-image = ExtResource("3_16c2x")
-building_stats = ExtResource("6_1mb6d")
+image = ExtResource("10_almxs")
+building_stats = ExtResource("7_vlhrl")
 
-[node name="Quarry" parent="HBoxContainer" unique_id=487082042 instance=ExtResource("2_ge6h4")]
+[node name="Icon" type="Sprite2D" parent="All/HBoxContainer" unique_id=1733545176]
+position = Vector2(38.333336, 5.666667)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_mfb1b")
+
+[node name="Token" type="Label" parent="All/HBoxContainer/Icon" unique_id=172072297]
+texture_filter = 1
+offset_left = -16.000006
+offset_top = 13.333333
+offset_right = 15.999994
+offset_bottom = 23.333332
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_dq2r0")
+theme_override_font_sizes/font_size = 8
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Carpentry" type="NinePatchRect" parent="." unique_id=442216926]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -191.0
+offset_right = -127.16666
+offset_bottom = 34.833336
+scale = Vector2(6, 6)
+texture = ExtResource("2_dgvd5")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Carpentry" unique_id=1258955484]
+layout_mode = 0
+offset_left = 9.833334
+offset_top = 9.5
+offset_right = 59.833336
+offset_bottom = 23.5
+
+[node name="LumberJack" parent="Carpentry/HBoxContainer" unique_id=2000902351 instance=ExtResource("2_ge6h4")]
 layout_mode = 2
-image = ExtResource("3_16c2x")
-building_stats = ExtResource("4_16c2x")
+image = ExtResource("5_almxs")
+building_stats = ExtResource("6_vlhrl")
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[node name="Sawmill" parent="Carpentry/HBoxContainer" unique_id=1559564694 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("14_oxbmh")
+building_stats = ExtResource("13_456wc")
+
+[node name="Icon" type="Sprite2D" parent="Carpentry/HBoxContainer" unique_id=99116213]
+position = Vector2(38.333336, 5.666667)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_fs0ef")
+
+[node name="Forestry" type="Label" parent="Carpentry/HBoxContainer/Icon" unique_id=1191571871]
+texture_filter = 1
+offset_left = -16.000006
+offset_top = 13.333333
+offset_right = 15.999994
+offset_bottom = 23.333332
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_dq2r0")
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Masonary" type="NinePatchRect" parent="." unique_id=1749908242]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -191.0
+offset_right = -127.16666
+offset_bottom = 34.833336
+scale = Vector2(6, 6)
+texture = ExtResource("2_dgvd5")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Masonary" unique_id=1317194473]
+layout_mode = 0
+offset_left = 9.833334
+offset_top = 9.5
+offset_right = 59.833336
+offset_bottom = 23.5
+
+[node name="Quarry" parent="Masonary/HBoxContainer" unique_id=1719548522 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("10_blil3")
+building_stats = ExtResource("8_456wc")
+
+[node name="StoneCutter" parent="Masonary/HBoxContainer" unique_id=307618895 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("7_blil3")
+building_stats = ExtResource("13_456wc")
+
+[node name="Icon" type="Sprite2D" parent="Masonary/HBoxContainer" unique_id=949734574]
+position = Vector2(38.333336, 5.666667)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_shi3s")
+
+[node name="Masonary" type="Label" parent="Masonary/HBoxContainer/Icon" unique_id=124344276]
+texture_filter = 1
+offset_left = -16.000006
+offset_top = 13.333333
+offset_right = 15.999994
+offset_bottom = 23.333332
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_dq2r0")
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Pottery" type="NinePatchRect" parent="." unique_id=1977530753]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -191.0
+offset_right = -127.16666
+offset_bottom = 34.833336
+scale = Vector2(6, 6)
+texture = ExtResource("2_dgvd5")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pottery" unique_id=1164586650]
+layout_mode = 0
+offset_left = 9.833334
+offset_top = 9.5
+offset_right = 59.833336
+offset_bottom = 23.5
+
+[node name="ClayPit" parent="Pottery/HBoxContainer" unique_id=1529084576 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("12_456wc")
+building_stats = ExtResource("13_456wc")
+
+[node name="ClayOven" parent="Pottery/HBoxContainer" unique_id=1448742362 instance=ExtResource("2_ge6h4")]
+layout_mode = 2
+image = ExtResource("15_dq2r0")
+building_stats = ExtResource("13_456wc")
+
+[node name="Icon" type="Sprite2D" parent="Pottery/HBoxContainer" unique_id=1660292285]
+position = Vector2(38.333336, 5.666667)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_edp8q")
+
+[node name="Pottery" type="Label" parent="Pottery/HBoxContainer/Icon" unique_id=669351063]
+texture_filter = 1
+offset_left = -16.000006
+offset_top = 13.333333
+offset_right = 15.999994
+offset_bottom = 23.333332
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("17_dq2r0")
+theme_override_font_sizes/font_size = 8
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="item_selected" from="CategoryList" to="." method="_on_category_list_item_selected"]

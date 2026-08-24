@@ -1,35 +1,11 @@
 [gd_scene format=3 uid="uid://dduoaaukgbmx8"]
 
-[ext_resource type="Script" uid="uid://dej5sjybpnu2f" path="res://Buildings/gather_building.gd" id="1_0c7ut"]
-[ext_resource type="Texture2D" uid="uid://bhnj1568knhya" path="res://Graphics/Launchpad.png" id="2_ay06m"]
+[ext_resource type="Script" uid="uid://bmcrfo7butiiy" path="res://Buildings/gather_building.gd" id="1_0c7ut"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_glyjp"]
-resource_local_to_scene = true
-size = Vector2(64, 32)
-
-[node name="GatherBuilding" type="Node2D" unique_id=414803019 node_paths=PackedStringArray("bots_container", "sprite", "make_transparent_area", "make_transparent_shape")]
-y_sort_enabled = true
+[node name="GatherBuilding" type="Node3D" unique_id=1336309528 node_paths=PackedStringArray("bots_container")]
 script = ExtResource("1_0c7ut")
 bots_container = NodePath("Bots")
-sprite = NodePath("Sprite2D")
-make_transparent_area = NodePath("MakeTransparentArea")
-make_transparent_shape = NodePath("MakeTransparentArea/MakeTransparentShape")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=922931139]
-position = Vector2(0, -15)
-texture = ExtResource("2_ay06m")
-
-[node name="MakeTransparentArea" type="Area2D" parent="." unique_id=695553810]
+[node name="Bots" type="Node3D" parent="." unique_id=350049918]
 unique_name_in_owner = true
-position = Vector2(0, -22)
-collision_layer = 0
-
-[node name="MakeTransparentShape" type="CollisionShape2D" parent="MakeTransparentArea" unique_id=330531008]
-unique_name_in_owner = true
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_glyjp")
-
-[node name="Bots" type="Node2D" parent="." unique_id=915999253]
-unique_name_in_owner = true
-y_sort_enabled = true
-position = Vector2(0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)

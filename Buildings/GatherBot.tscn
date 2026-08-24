@@ -1,242 +1,33 @@
 [gd_scene format=3 uid="uid://bxcbt223174q4"]
 
-[ext_resource type="Script" uid="uid://d0c05lljngdjy" path="res://Buildings/gather_bot.gd" id="1_atplc"]
-[ext_resource type="Shader" uid="uid://cpt505chudlo6" path="res://Buildings/GatherBot.gdshader" id="2_05pa1"]
-[ext_resource type="Texture2D" uid="uid://hhprflel3tyl" path="res://Graphics/Bot.png" id="2_ldcgy"]
-[ext_resource type="Script" uid="uid://b7iarl0jxqggv" path="res://Components/IsometricSimpleNavigation.gd" id="3_2e67q"]
-[ext_resource type="Texture2D" uid="uid://bcg2jnnsi5p0q" path="res://Graphics/Bot_chainsaw.png" id="3_ykl6r"]
-[ext_resource type="Script" uid="uid://dpaqr1q232xyc" path="res://Components/MoveComponent.gd" id="4_ldcgy"]
-[ext_resource type="Texture2D" uid="uid://5y3xis872gc3" path="res://Graphics/Tile_marker.png" id="5_ldcgy"]
+[ext_resource type="Script" uid="uid://kwdqwq8ig1kh" path="res://Buildings/gather_bot.gd" id="1_atplc"]
+[ext_resource type="PackedScene" uid="uid://dfjsiqrtrfujm" path="res://Buildings/Models/worker.glb" id="2_tiitl"]
+[ext_resource type="Script" uid="uid://cxr4h0n7a40ws" path="res://Components/SimpleNavigation.gd" id="3_2e67q"]
+[ext_resource type="Script" uid="uid://dawkiqebsyck3" path="res://Components/MoveComponent.gd" id="4_ldcgy"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_421n8"]
-resource_local_to_scene = true
-shader = ExtResource("2_05pa1")
-shader_parameter/fullness = 0.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_btri3"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iiwm3"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oixfp"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gv5k3"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d64xj"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qt2w2"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lt138"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j46c0"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y8dis"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ocbow"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(32, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ddv8t"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(64, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o7cfj"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(96, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s8uxy"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ledwe"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ok435"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x4mml"]
-atlas = ExtResource("2_ldcgy")
-region = Rect2(96, 64, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ykl6r"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_btri3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_iiwm3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oixfp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gv5k3")
-}],
-"loop": true,
-"name": &"Move_down_left",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d64xj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qt2w2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lt138")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j46c0")
-}],
-"loop": true,
-"name": &"Move_down_right",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y8dis")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ocbow")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ddv8t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o7cfj")
-}],
-"loop": true,
-"name": &"Move_up_left",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s8uxy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ledwe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ok435")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x4mml")
-}],
-"loop": true,
-"name": &"Move_up_right",
-"speed": 10.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ykl6r"]
-atlas = ExtResource("3_ykl6r")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_05pa1"]
-atlas = ExtResource("3_ykl6r")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_421n8"]
-atlas = ExtResource("3_ykl6r")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fp1b2"]
-atlas = ExtResource("3_ykl6r")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhbqp"]
-atlas = ExtResource("3_ykl6r")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xe0sg"]
-atlas = ExtResource("3_ykl6r")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ldcgy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ykl6r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_05pa1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_421n8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fp1b2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dhbqp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xe0sg")
-}],
-"loop": true,
-"name": &"Tool",
-"speed": 20.0
-}]
-
-[node name="GatherBot" type="Node2D" unique_id=342365095 node_paths=PackedStringArray("animated_sprite", "tool", "gather_timer", "wait_timer", "navigation", "move_component", "target_marker")]
+[node name="GatherBot" type="Node3D" unique_id=583195204 node_paths=PackedStringArray("graphic", "gather_timer", "wait_timer", "navigation", "move_component")]
 script = ExtResource("1_atplc")
-animated_sprite = NodePath("Bot")
-tool = NodePath("Tool")
+graphic = NodePath("graphic")
 gather_timer = NodePath("GatherTimer")
 wait_timer = NodePath("Wait")
-navigation = NodePath("Components/IsometricNavigation")
+navigation = NodePath("Components/SimpleNavigation")
 move_component = NodePath("Components/MoveComponent")
-target_marker = NodePath("TargetMarker")
 
-[node name="Bot" type="AnimatedSprite2D" parent="." unique_id=1691971080]
-y_sort_enabled = true
-material = SubResource("ShaderMaterial_421n8")
-position = Vector2(0, -24)
-sprite_frames = SubResource("SpriteFrames_ykl6r")
-animation = &"Move_down_left"
-offset = Vector2(0, 16)
-
-[node name="Tool" type="AnimatedSprite2D" parent="." unique_id=1582236504]
-y_sort_enabled = true
-position = Vector2(13.999999, -10)
-skew = -0.5235988
-sprite_frames = SubResource("SpriteFrames_ldcgy")
-animation = &"Tool"
-frame_progress = 0.37561914
+[node name="graphic" parent="." unique_id=934551797 instance=ExtResource("2_tiitl")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Components" type="Node" parent="." unique_id=399505897]
 
-[node name="IsometricNavigation" type="Node" parent="Components" unique_id=1524540734 node_paths=PackedStringArray("move_component")]
+[node name="SimpleNavigation" type="Node" parent="Components" unique_id=1688895875 node_paths=PackedStringArray("move_component")]
 script = ExtResource("3_2e67q")
 move_component = NodePath("../MoveComponent")
-metadata/_custom_type_script = "uid://b7iarl0jxqggv"
+metadata/_custom_type_script = "uid://cxr4h0n7a40ws"
 
 [node name="MoveComponent" type="Node" parent="Components" unique_id=1896427177 node_paths=PackedStringArray("Actor", "Navigation_Component")]
 script = ExtResource("4_ldcgy")
 Actor = NodePath("../..")
-Navigation_Component = NodePath("../IsometricNavigation")
-Speed = 80.0
-metadata/_custom_type_script = "uid://dpaqr1q232xyc"
+Navigation_Component = NodePath("../SimpleNavigation")
+Speed = 6.5
 
 [node name="GatherTimer" type="Timer" parent="." unique_id=436453849]
 one_shot = true
@@ -244,17 +35,6 @@ one_shot = true
 [node name="Wait" type="Timer" parent="." unique_id=119580969]
 wait_time = 0.1
 one_shot = true
-
-[node name="TargetMarker" type="Sprite2D" parent="." unique_id=2022054093]
-unique_name_in_owner = true
-visible = false
-self_modulate = Color(1, 0, 0, 0.490196)
-show_behind_parent = true
-top_level = true
-z_index = 2
-y_sort_enabled = true
-position = Vector2(0, 13)
-texture = ExtResource("5_ldcgy")
 
 [connection signal="target_reached" from="Components/MoveComponent" to="." method="_on_move_component_target_reached"]
 [connection signal="timeout" from="GatherTimer" to="." method="_on_gather_timer_timeout"]

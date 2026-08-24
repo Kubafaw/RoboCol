@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://bl33yneq1w2pl"]
+
+[ext_resource type="Texture2D" uid="uid://v4gox7p6rpw" path="res://HUD/Graphics/stones.png" id="1_02i0v"]
+[ext_resource type="Script" uid="uid://d4mfp6kx23s55" path="res://Resources/Nodes/Resources/ResourceData.gd" id="2_motia"]
+
+[resource]
+script = ExtResource("2_motia")
+name = "Rocks"
+category = 2
+graphic = ExtResource("1_02i0v")
+metadata/_custom_type_script = "uid://d4mfp6kx23s55"

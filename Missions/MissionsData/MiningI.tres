@@ -1,17 +1,16 @@
 [gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://tn8grjxdax8w"]
 
-[ext_resource type="Script" uid="uid://dvo8gt8g5t2om" path="res://Missions/MissionsData/MissionData.gd" id="1_27sv1"]
-[ext_resource type="Texture2D" uid="uid://ckc8uvaw4y5ib" path="res://icon.svg" id="1_kc8e7"]
+[ext_resource type="Script" uid="uid://cn72kd3fjssfx" path="res://Missions/MissionsData/MissionData.gd" id="1_27sv1"]
+[ext_resource type="Texture2D" uid="uid://cny630uxps6qb" path="res://HUD/Graphics/Mining_mission_1.png" id="1_kc8e7"]
 
 [resource]
 script = ExtResource("1_27sv1")
 icon = ExtResource("1_kc8e7")
 time = 300.0
 Gains = Dictionary[int, int]({
-3: 1,
-6: 1
+7: 1,
+10: 1
 })
 Quota = Dictionary[int, int]({
-1: 5
+2: 5
 })
-metadata/_custom_type_script = "uid://dvo8gt8g5t2om"

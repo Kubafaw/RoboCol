@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://vj2obaq8g7ik"]
+
+[ext_resource type="Script" uid="uid://cn72kd3fjssfx" path="res://Missions/MissionsData/MissionData.gd" id="2_wqix1"]
+[ext_resource type="Resource" uid="uid://b1hfj30ba0tsb" path="res://Missions/MissionsData/PotteryI.tres" id="3_osl20"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_07i07"]
+load_path = "res://.godot/imported/Pottery_mission_2.png-2721b103fa34b8f260f9734838d0d09d.ctex"
+
+[resource]
+script = ExtResource("2_wqix1")
+icon = SubResource("CompressedTexture2D_07i07")
+time = 300.0
+missions_to_unlock = Array[ExtResource("2_wqix1")]([ExtResource("3_osl20")])
+Gains = Dictionary[int, int]({
+7: 1,
+9: 1
+})
+Quota = Dictionary[int, int]({
+6: 5
+})

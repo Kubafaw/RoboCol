@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="BuildingStats" format=3 uid="uid://bsxov12nq1m2j"]
 
-[ext_resource type="Script" uid="uid://cpntsqha02r4v" path="res://Buildings/Resources/BuildingData.gd" id="1_1pcs8"]
+[ext_resource type="Script" uid="uid://b4a3c83fgwmmu" path="res://Buildings/Resources/BuildingData.gd" id="1_1pcs8"]
 [ext_resource type="PackedScene" uid="uid://duqhtbtu8w4ur" path="res://Buildings/HUB.tscn" id="1_ysyi2"]
-[ext_resource type="Texture2D" uid="uid://b1fc3kf6t2xdd" path="res://Graphics/HUB_icon.png" id="2_cca72"]
+[ext_resource type="PackedScene" uid="uid://dp565tcae4mdn" path="res://Buildings/Models/hub.glb" id="2_cca72"]
 
 [resource]
 script = ExtResource("1_1pcs8")
-size = Vector2i(2, 2)
+size = Vector2i(3, 3)
 building = ExtResource("1_ysyi2")
-image = ExtResource("2_cca72")
-metadata/_custom_type_script = "uid://cpntsqha02r4v"
+graphic = ExtResource("2_cca72")
+model_scale = 1.0

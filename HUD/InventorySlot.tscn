@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c5yjxsrvhv484"]
 
-[ext_resource type="Texture2D" uid="uid://v1t7dh3kfuxi" path="res://Graphics/Logs.png" id="1_057ip"]
-[ext_resource type="Script" uid="uid://kekr1lgrsdg7" path="res://HUD/inventory_slot.gd" id="1_x7rkh"]
-[ext_resource type="FontFile" uid="uid://ehhu2otuxy03" path="res://Fonts/Early GameBoy.ttf" id="2_x7rkh"]
+[ext_resource type="Script" uid="uid://ci0df4y4xymwp" path="res://HUD/inventory_slot.gd" id="1_x7rkh"]
+[ext_resource type="Texture2D" uid="uid://bk4jlqx1phb2d" path="res://HUD/Graphics/Logs.png" id="2_auyuj"]
+[ext_resource type="FontFile" uid="uid://7jnl4uego550" path="res://Fonts/Early GameBoy.ttf" id="2_x7rkh"]
 
 [sub_resource type="Animation" id="Animation_x7rkh"]
 length = 0.001
@@ -58,7 +58,7 @@ _data = {
 &"value_update": SubResource("Animation_neygn")
 }
 
-[node name="InventorySlot" type="Control" unique_id=349695648]
+[node name="InventorySlot" type="Control" unique_id=349695648 node_paths=PackedStringArray("icon", "animations", "amount_label")]
 custom_minimum_size = Vector2(27, 24)
 layout_mode = 3
 anchors_preset = 0
@@ -66,18 +66,23 @@ offset_right = 26.0
 offset_bottom = 22.0
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_x7rkh")
+icon = NodePath("Icon")
+animations = NodePath("Animations")
+amount_label = NodePath("Icon/Amount")
 
 [node name="Icon" type="Sprite2D" parent="." unique_id=2074656206]
 unique_name_in_owner = true
-position = Vector2(12, 16)
-texture = ExtResource("1_057ip")
+texture_filter = 1
+position = Vector2(14, 12)
+texture = ExtResource("2_auyuj")
 
 [node name="Amount" type="Label" parent="Icon" unique_id=1286646668]
 unique_name_in_owner = true
-offset_left = -14.0
-offset_top = 6.0
-offset_right = 18.0
-offset_bottom = 16.0
+texture_filter = 1
+offset_left = -16.0
+offset_top = 10.0
+offset_right = 16.0
+offset_bottom = 20.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_x7rkh")
 theme_override_font_sizes/font_size = 8
@@ -85,7 +90,7 @@ text = "125"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HoverAnimation" type="AnimationPlayer" parent="." unique_id=726947111]
+[node name="Animations" type="AnimationPlayer" parent="." unique_id=726947111]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_neygn")
 

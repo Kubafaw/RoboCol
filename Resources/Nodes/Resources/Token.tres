@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://dpepcusxya7n4"]
+
+[ext_resource type="Texture2D" uid="uid://cnat4hhkveqgr" path="res://HUD/Graphics/Token.png" id="1_kda4k"]
+[ext_resource type="Script" uid="uid://d4mfp6kx23s55" path="res://Resources/Nodes/Resources/ResourceData.gd" id="2_0upia"]
+
+[resource]
+script = ExtResource("2_0upia")
+name = "Token"
+graphic = ExtResource("1_kda4k")
+metadata/_custom_type_script = "uid://d4mfp6kx23s55"

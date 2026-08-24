@@ -1,105 +1,48 @@
-[gd_scene format=3 uid="uid://daibsi4yt7f1g"]
+[gd_scene format=3 uid="uid://bksarbndjeyap"]
 
-[ext_resource type="Script" uid="uid://6xpcge8mv0m8" path="res://game.gd" id="1_80nbo"]
-[ext_resource type="Texture2D" uid="uid://5y3xis872gc3" path="res://Graphics/Tile_marker.png" id="2_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://4efytf82pgop" path="res://MainMap/MainMap.tscn" id="2_feb5d"]
-[ext_resource type="PackedScene" uid="uid://dlsc0dlrbgr70" path="res://Player/Player.tscn" id="4_fc0e3"]
-[ext_resource type="Texture2D" uid="uid://cjfhg0tnrju27" path="res://Graphics/Progress_fill.png" id="5_ryrav"]
-[ext_resource type="Texture2D" uid="uid://b7ufk618xei7" path="res://Graphics/Progress_boundry.png" id="6_eow3j"]
-[ext_resource type="PackedScene" uid="uid://cwqexdcopkahu" path="res://HUD/HUD.tscn" id="7_eow3j"]
+[ext_resource type="PackedScene" uid="uid://v4kkqmns01de" path="res://MainMap/MainMap.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://dec5jyt8ikpgq" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bf3aptmuj8xxa" path="res://Player/player.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://cwqexdcopkahu" path="res://HUD/HUD.tscn" id="4_fc0e3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc0e3"]
-size = Vector2(12, 6)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[node name="Game" type="Node2D" unique_id=953293632 node_paths=PackedStringArray("building_pointer", "action_progress")]
-y_sort_enabled = true
-script = ExtResource("1_80nbo")
-building_pointer = NodePath("Player/Building")
-action_progress = NodePath("ActionProgress")
+[sub_resource type="Sky" id="Sky_e2o6t"]
+sky_material = SubResource("ProceduralSkyMaterial_80nbo")
 
-[node name="MainMap" parent="." unique_id=1479695019 instance=ExtResource("2_feb5d")]
+[sub_resource type="Environment" id="Environment_feb5d"]
+background_mode = 2
+sky = SubResource("Sky_e2o6t")
+tonemap_mode = 2
+glow_enabled = true
 
-[node name="Camera" type="Camera2D" parent="." unique_id=1219193820]
-unique_name_in_owner = true
-zoom = Vector2(4, 4)
-position_smoothing_enabled = true
-position_smoothing_speed = 2.0
+[node name="Game" type="Node3D" unique_id=1058288115 node_paths=PackedStringArray("directional_light", "quota_timer")]
+script = ExtResource("1_e2o6t")
+directional_light = NodePath("Environment/DirectionalLight3D")
+quota_timer = NodePath("QuotaTimer")
 
-[node name="ActionProgress" type="TextureProgressBar" parent="." unique_id=428345183]
-unique_name_in_owner = true
-visible = false
-z_index = 3
-offset_left = -18.0
-offset_top = -44.0
-offset_right = 18.0
-offset_bottom = -30.0
-min_value = -0.05
-max_value = 1.25
-step = 0.001
-value = 0.5
-fill_mode = 6
-nine_patch_stretch = true
-stretch_margin_left = 4
-stretch_margin_top = 4
-stretch_margin_right = 4
-stretch_margin_bottom = 4
-texture_under = ExtResource("5_ryrav")
-texture_over = ExtResource("6_eow3j")
-texture_progress = ExtResource("5_ryrav")
-tint_under = Color(0.266575, 0.266575, 0.266575, 1)
-tint_progress = Color(0.280924, 0.603341, 0.228057, 1)
+[node name="Environment" type="Node3D" parent="." unique_id=718474370]
 
-[node name="Player" parent="." unique_id=449489402 instance=ExtResource("4_fc0e3")]
-unique_name_in_owner = true
-position = Vector2(28, 19)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1212000193]
+environment = SubResource("Environment_feb5d")
 
-[node name="TargetMarker" type="Sprite2D" parent="Player" unique_id=1821123609]
-unique_name_in_owner = true
-visible = false
-self_modulate = Color(1, 0, 0, 0.490196)
-show_behind_parent = true
-top_level = true
-z_index = 2
-y_sort_enabled = true
-position = Vector2(0, 13)
-texture = ExtResource("2_e2o6t")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1111835721]
+transform = Transform3D(-0.86602545, -0.43301266, 0.24999993, -0.17178065, 0.7272361, 0.6645443, -0.46956506, 0.5325671, -0.70418817, 0, 14.437376, 0)
+light_color = Color(1, 1, 0.84313726, 1)
+light_specular = 0.1
+shadow_enabled = true
 
-[node name="MakeTransparentArea" type="Area2D" parent="Player/TargetMarker" unique_id=1210611149]
-collision_mask = 0
+[node name="WorldMap" parent="." unique_id=340086178 node_paths=PackedStringArray("player") instance=ExtResource("1_80nbo")]
+player = NodePath("../Player")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/TargetMarker/MakeTransparentArea" unique_id=503352989]
-shape = SubResource("RectangleShape2D_fc0e3")
+[node name="Player" parent="." unique_id=475426362 instance=ExtResource("3_feb5d")]
 
-[node name="Pointer" type="Sprite2D" parent="Player" unique_id=186042494]
-unique_name_in_owner = true
-self_modulate = Color(0, 0, 1, 0.490196)
-show_behind_parent = true
-top_level = true
-z_index = 2
-y_sort_enabled = true
-position = Vector2(0, 13)
-texture = ExtResource("2_e2o6t")
+[node name="Hud" parent="." unique_id=505432385 instance=ExtResource("4_fc0e3")]
 
-[node name="MakeTransparentArea" type="Area2D" parent="Player/Pointer" unique_id=479480258]
-collision_mask = 0
+[node name="QuotaTimer" type="Timer" parent="." unique_id=135362024]
+wait_time = 10.0
+autostart = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Pointer/MakeTransparentArea" unique_id=361604685]
-shape = SubResource("RectangleShape2D_fc0e3")
-
-[node name="Building" type="Sprite2D" parent="Player" unique_id=1051724935]
-unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0.7058824)
-show_behind_parent = true
-top_level = true
-z_index = 2
-y_sort_enabled = true
-position = Vector2(0, 13)
-
-[node name="MakeTransparentArea" type="Area2D" parent="Player/Building" unique_id=1865269240]
-unique_name_in_owner = true
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Building/MakeTransparentArea" unique_id=940218244]
-shape = SubResource("RectangleShape2D_fc0e3")
-
-[node name="Hud" parent="." unique_id=505432385 instance=ExtResource("7_eow3j")]
+[connection signal="timeout" from="QuotaTimer" to="." method="_on_quota_timer_timeout"]

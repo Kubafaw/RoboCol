@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://43t54xfyyym4"]
+
+[ext_resource type="Texture2D" uid="uid://dbiuinrrucpl" path="res://HUD/Graphics/Pottery_mission_2.png" id="1_eumst"]
+[ext_resource type="Script" uid="uid://cn72kd3fjssfx" path="res://Missions/MissionsData/MissionData.gd" id="2_eumst"]
+[ext_resource type="Resource" uid="uid://b1hfj30ba0tsb" path="res://Missions/MissionsData/PotteryI.tres" id="3_asl3t"]
+
+[resource]
+script = ExtResource("2_eumst")
+icon = ExtResource("1_eumst")
+time = 300.0
+missions_to_unlock = Array[ExtResource("2_eumst")]([ExtResource("3_asl3t")])
+Gains = Dictionary[int, int]({
+7: 1,
+9: 1
+})
+Quota = Dictionary[int, int]({
+5: 5
+})

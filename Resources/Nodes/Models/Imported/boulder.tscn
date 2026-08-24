@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ba8mpmc53r023"]
+
+[ext_resource type="PackedScene" uid="uid://cv07rn8qr8mps" path="res://Resources/Nodes/Models/boulder.glb" id="1_bygvb"]
+[ext_resource type="Material" uid="uid://kmfxhmw6pcqu" path="res://Shaders/simple_material.tres" id="2_51uvm"]
+
+[node name="boulder" unique_id=746958263 instance=ExtResource("1_bygvb")]
+
+[node name="stone" parent="." index="0" unique_id=1844105621]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+material_override = ExtResource("2_51uvm")
+
+[node name="Cords" type="Label3D" parent="." index="1" unique_id=1126970343]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3941746, 0)
+text = "(0,0)"
+font_size = 64

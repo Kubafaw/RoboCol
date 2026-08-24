@@ -1,17 +1,16 @@
 [gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://c5xwpgfld8sqd"]
 
-[ext_resource type="Script" uid="uid://dvo8gt8g5t2om" path="res://Missions/MissionsData/MissionData.gd" id="1_2i5jd"]
-[ext_resource type="Texture2D" uid="uid://ckc8uvaw4y5ib" path="res://icon.svg" id="1_c3oea"]
+[ext_resource type="Script" uid="uid://cn72kd3fjssfx" path="res://Missions/MissionsData/MissionData.gd" id="1_2i5jd"]
+[ext_resource type="Texture2D" uid="uid://bjqwrqbkbfcey" path="res://HUD/Graphics/Forestry_mission_1.png" id="1_c3oea"]
 
 [resource]
 script = ExtResource("1_2i5jd")
 icon = ExtResource("1_c3oea")
 time = 245.0
 Gains = Dictionary[int, int]({
-3: 1,
-4: 1
+7: 1,
+8: 1
 })
 Quota = Dictionary[int, int]({
-0: 5
+1: 5
 })
-metadata/_custom_type_script = "uid://dvo8gt8g5t2om"

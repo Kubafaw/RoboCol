@@ -1,16 +1,30 @@
 [gd_scene format=3 uid="uid://cwqexdcopkahu"]
 
-[ext_resource type="Script" uid="uid://dih85bt2ip8k8" path="res://HUD/hud.gd" id="1_amwvk"]
+[ext_resource type="Script" uid="uid://dnev45xcp8in8" path="res://HUD/hud.gd" id="1_amwvk"]
 [ext_resource type="PackedScene" uid="uid://ds1u1wddxn1up" path="res://HUD/BuildList.tscn" id="3_ja1d4"]
+[ext_resource type="FontFile" uid="uid://7jnl4uego550" path="res://Fonts/Early GameBoy.ttf" id="4_aa5tu"]
 [ext_resource type="PackedScene" uid="uid://smtpau3kmoex" path="res://HUD/Inventory.tscn" id="4_amwvk"]
+[ext_resource type="PackedScene" uid="uid://cqacmkjc855lg" path="res://Missions/MissionSelection.tscn" id="5_aa5tu"]
+[ext_resource type="PackedScene" uid="uid://owma1fcvwkiu" path="res://Missions/ResourceInfo.tscn" id="5_njmlf"]
 
-[node name="Hud" type="Node2D" unique_id=505432385]
+[node name="Hud" type="Node3D" unique_id=1984396541 node_paths=PackedStringArray("quota_time", "objective_selection", "quota_list", "build_list", "hub_inventory", "player_inventory")]
 script = ExtResource("1_amwvk")
+quota_time = NodePath("CanvasLayer/QuotaTime")
+objective_selection = NodePath("CanvasLayer/ObjectiveSelection2")
+quota_list = NodePath("CanvasLayer/quota_list")
+build_list = NodePath("CanvasLayer/BuildList")
+hub_inventory = NodePath("CanvasLayer/HubInventory")
+player_inventory = NodePath("CanvasLayer/PlayerInventory")
+resource_info_scene = ExtResource("5_njmlf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1845040472]
 
 [node name="PlayerInventory" parent="CanvasLayer" unique_id=367141152 instance=ExtResource("4_amwvk")]
 unique_name_in_owner = true
+offset_left = 318.0
+offset_top = 351.0
+offset_right = 894.0
+offset_bottom = 831.0
 mouse_filter = 2
 mouse_behavior_recursive = 2
 _inv_name = "Player"
@@ -18,21 +32,43 @@ type = "Player"
 
 [node name="HubInventory" parent="CanvasLayer" unique_id=384012395 instance=ExtResource("4_amwvk")]
 unique_name_in_owner = true
+offset_left = 989.0
+offset_top = 347.0
+offset_right = 1565.0
+offset_bottom = 827.0
 mouse_filter = 2
 mouse_behavior_recursive = 2
 _inv_name = "HUB"
 type = "HUB"
 
 [node name="BuildList" parent="CanvasLayer" unique_id=1346066741 instance=ExtResource("3_ja1d4")]
+custom_minimum_size = Vector2(480, 195)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -512.0
-offset_top = -376.0
-offset_right = 512.0
-offset_bottom = -236.0
+offset_left = -3.0
+offset_top = -203.0
+offset_right = 477.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
+
+[node name="QuotaTime" type="Label" parent="CanvasLayer" unique_id=1668983220]
+offset_right = 399.0
+offset_bottom = 84.0
+theme_override_fonts/font = ExtResource("4_aa5tu")
+theme_override_font_sizes/font_size = 32
+text = "Quota: 00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quota_list" type="VBoxContainer" parent="CanvasLayer" unique_id=1666648342]
+offset_top = 82.0
+offset_right = 40.0
+offset_bottom = 122.0
+
+[node name="ObjectiveSelection2" parent="CanvasLayer" unique_id=422021393 instance=ExtResource("5_aa5tu")]
+visible = false

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ResourceData" format=3 uid="uid://fkhx3sr4wujr"]
+
+[ext_resource type="Texture2D" uid="uid://bffnhvffvd2mk" path="res://HUD/Graphics/PotteryToken.png" id="1_wpgor"]
+[ext_resource type="Script" uid="uid://d4mfp6kx23s55" path="res://Resources/Nodes/Resources/ResourceData.gd" id="2_rn2i1"]
+
+[resource]
+script = ExtResource("2_rn2i1")
+name = "PotteryToken"
+category = 3
+graphic = ExtResource("1_wpgor")
+metadata/_custom_type_script = "uid://d4mfp6kx23s55"

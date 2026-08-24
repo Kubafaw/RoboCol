@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://bju5fx6beunus"]
+
+[ext_resource type="Texture2D" uid="uid://bjauqjl16moxq" path="res://HUD/Graphics/Mining_mission_2.png" id="1_hfmw6"]
+[ext_resource type="Script" uid="uid://cn72kd3fjssfx" path="res://Missions/MissionsData/MissionData.gd" id="2_s1m82"]
+[ext_resource type="Resource" uid="uid://tn8grjxdax8w" path="res://Missions/MissionsData/MiningI.tres" id="3_s1m82"]
+
+[resource]
+script = ExtResource("2_s1m82")
+icon = ExtResource("1_hfmw6")
+time = 300.0
+missions_to_unlock = Array[ExtResource("2_s1m82")]([ExtResource("3_s1m82")])
+Gains = Dictionary[int, int]({
+7: 1,
+10: 1
+})
+Quota = Dictionary[int, int]({
+4: 5
+})

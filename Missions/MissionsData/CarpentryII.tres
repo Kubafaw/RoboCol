@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MissionData" format=3 uid="uid://cwpnnpcfl154d"]
+
+[ext_resource type="Texture2D" uid="uid://bpsoersbscrmq" path="res://HUD/Graphics/Forestry_mission_2.png" id="1_cdm6u"]
+[ext_resource type="Script" uid="uid://cn72kd3fjssfx" path="res://Missions/MissionsData/MissionData.gd" id="2_cdm6u"]
+[ext_resource type="Resource" uid="uid://c5xwpgfld8sqd" path="res://Missions/MissionsData/CarpentryI.tres" id="3_4m87r"]
+
+[resource]
+script = ExtResource("2_cdm6u")
+icon = ExtResource("1_cdm6u")
+time = 245.0
+missions_to_unlock = Array[ExtResource("2_cdm6u")]([ExtResource("3_4m87r")])
+Gains = Dictionary[int, int]({
+7: 1,
+8: 1
+})
+Quota = Dictionary[int, int]({
+3: 5
+})

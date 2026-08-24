@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://btomiiq0ypj6h"]
 
-[ext_resource type="Script" uid="uid://bunayhpnc5myp" path="res://Missions/mission.gd" id="1_7xtgd"]
-[ext_resource type="Texture2D" uid="uid://ckc8uvaw4y5ib" path="res://icon.svg" id="1_wuegg"]
+[ext_resource type="Script" uid="uid://c0qddvomirwg8" path="res://Missions/mission.gd" id="1_7xtgd"]
+[ext_resource type="Texture2D" uid="uid://csvcb08iuo8gc" path="res://icon.svg" id="1_wuegg"]
 [ext_resource type="PackedScene" uid="uid://owma1fcvwkiu" path="res://Missions/ResourceInfo.tscn" id="2_ivcx0"]
-[ext_resource type="Texture2D" uid="uid://xoy0cvfki31s" path="res://Graphics/UI_frame_empty.png" id="2_mekij"]
-[ext_resource type="FontFile" uid="uid://ehhu2otuxy03" path="res://Fonts/Early GameBoy.ttf" id="3_ivcx0"]
+[ext_resource type="FontFile" uid="uid://7jnl4uego550" path="res://Fonts/Early GameBoy.ttf" id="3_ivcx0"]
+[ext_resource type="Texture2D" uid="uid://ubtmakmci7qp" path="res://HUD/Graphics/UI_frame_empty.png" id="3_mekij"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mekij"]
 
 [node name="Objective" type="HBoxContainer" unique_id=1013911532 node_paths=PackedStringArray("mission_icon", "time_label", "gains_list", "quota_list")]
+process_mode = 3
+texture_filter = 1
 custom_minimum_size = Vector2(255, 450)
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -31,11 +35,11 @@ theme_override_constants/margin_bottom = 250
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("2_mekij")
-patch_margin_left = 16
-patch_margin_top = 16
-patch_margin_right = 16
-patch_margin_bottom = 16
+texture = ExtResource("3_mekij")
+patch_margin_left = 48
+patch_margin_top = 48
+patch_margin_right = 48
+patch_margin_bottom = 48
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
@@ -60,17 +64,20 @@ custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
 [node name="Control2" type="Control" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=186962854]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=1080836141]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Image" type="Sprite2D" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2/HBoxContainer/Control" unique_id=1900224282]
 position = Vector2(-1.333313, 64)
+scale = Vector2(3, 3)
 texture = ExtResource("1_wuegg")
 
 [node name="TimeLabel" type="Label" parent="MarginContainer/NinePatchRect/MarginContainer/VBoxContainer2" unique_id=945326735]
@@ -109,3 +116,14 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/NinePatchRect" unique_id=1349355314]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mekij")
+
+[connection signal="pressed" from="MarginContainer/NinePatchRect/Button" to="." method="_on_button_pressed"]

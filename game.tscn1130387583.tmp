@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bksarbndjeyap"]
+
+[ext_resource type="PackedScene" uid="uid://v4kkqmns01de" path="res://MainMap/MainMap.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://dec5jyt8ikpgq" path="res://game.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bf3aptmuj8xxa" path="res://Player/player.tscn" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://cwqexdcopkahu" path="res://HUD/HUD.tscn" id="4_fc0e3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_80nbo"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_e2o6t"]
+sky_material = SubResource("ProceduralSkyMaterial_80nbo")
+
+[sub_resource type="Environment" id="Environment_feb5d"]
+background_mode = 2
+sky = SubResource("Sky_e2o6t")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_feb5d"]
+transparency = 1
+albedo_color = Color(0, 0, 1, 0.3529412)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xrivr"]
+material = SubResource("StandardMaterial3D_feb5d")
+size = Vector3(1.7388916, 0.099487305, 1.9002686)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6q2y"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.3529412)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fc0e3"]
+material = SubResource("StandardMaterial3D_q6q2y")
+size = Vector3(1.7388916, 0.099487305, 1.9002686)
+
+[node name="Game" type="Node3D" unique_id=1058288115 node_paths=PackedStringArray("directional_light", "target_marker", "pointer_marker")]
+script = ExtResource("1_e2o6t")
+directional_light = NodePath("Environment/DirectionalLight3D")
+target_marker = NodePath("TargetMarker")
+pointer_marker = NodePath("PointerMarker")
+
+[node name="Environment" type="Node3D" parent="." unique_id=718474370]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=1212000193]
+environment = SubResource("Environment_feb5d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=1111835721]
+transform = Transform3D(-0.86602545, -0.43301266, 0.24999993, -0.17178065, 0.7272361, 0.6645443, -0.46956506, 0.5325671, -0.70418817, 0, 14.437376, 0)
+light_color = Color(1, 1, 0.84313726, 1)
+light_specular = 0.1
+shadow_enabled = true
+
+[node name="WorldMap" parent="." unique_id=340086178 node_paths=PackedStringArray("player") instance=ExtResource("1_80nbo")]
+player = NodePath("../Player")
+
+[node name="Player" parent="." unique_id=475426362 instance=ExtResource("3_feb5d")]
+
+[node name="TargetMarker" type="MeshInstance3D" parent="." unique_id=1039271450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04034424, 0.17509651, 0.0770874)
+transparency = 0.6
+cast_shadow = 0
+mesh = SubResource("BoxMesh_xrivr")
+
+[node name="PointerMarker" type="MeshInstance3D" parent="." unique_id=1662125166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04034424, 0.17509651, 0.09279126)
+transparency = 0.6
+cast_shadow = 0
+mesh = SubResource("BoxMesh_fc0e3")
+
+[node name="Hud" parent="." unique_id=505432385 instance=ExtResource("4_fc0e3")]
